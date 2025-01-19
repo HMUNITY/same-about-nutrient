@@ -1,108 +1,131 @@
 // script.js
-// Nutrient content per 100g of each ingredient
-const nutrientData = {
-    eggs: {
-        iron: 1.75,
-        zinc: 1.29,
-        calcium: 56
-    },
-    spinach: {
-        iron: 2.71,
-        zinc: 0.53,
-        calcium: 99
-    },
-    salmon: {
-        iron: 0.8,
-        zinc: 0.64,
-        calcium: 13
-    },
-    quinoa: {
-        iron: 4.57,
-        zinc: 3.1,
-        calcium: 47
-    },
-    almonds: {
-        iron: 3.71,
-        zinc: 3.12,
-        calcium: 269
-    },
-    yogurt: {
-        iron: 0.05,
-        zinc: 0.59,
-        calcium: 121
-    },
-    lentils: {
-        iron: 6.51,
-        zinc: 2.27,
-        calcium: 35
-    },
-    broccoli: {
-        iron: 0.73,
-        zinc: 0.41,
-        calcium: 47
-    },
-    chickpeas: {
-        iron: 4.31,
-        zinc: 2.76,
-        calcium: 49
-    }
+const nutrients = {
+    vitaminB1: { name: 'Vitamin B1', rda: 1.2, unit: 'mg' },
+    vitaminB2: { name: 'Vitamin B2', rda: 1.3, unit: 'mg' },
+    vitaminB3: { name: 'Vitamin B3', rda: 16, unit: 'mg' },
+    vitaminB5: { name: 'Vitamin B5', rda: 5, unit: 'mg' },
+    vitaminB6: { name: 'Vitamin B6', rda: 1.7, unit: 'mg' },
+    vitaminB7: { name: 'Vitamin B7', rda: 30, unit: 'mcg' },
+    vitaminB12: { name: 'Vitamin B12', rda: 2.4, unit: 'mcg' },
+    vitaminC: { name: 'Vitamin C', rda: 90, unit: 'mg' },
+    vitaminD: { name: 'Vitamin D', rda: 15, unit: 'mcg' },
+    vitaminK: { name: 'Vitamin K', rda: 120, unit: 'mcg' },
+    calcium: { name: 'Calcium', rda: 1000, unit: 'mg' },
+    iron: { name: 'Iron', rda: 18, unit: 'mg' },
+    magnesium: { name: 'Magnesium', rda: 400, unit: 'mg' },
+    zinc: { name: 'Zinc', rda: 11, unit: 'mg' },
+    potassium: { name: 'Potassium', rda: 3500, unit: 'mg' },
+    iodine: { name: 'Iodine', rda: 150, unit: 'mcg' },
+    choline: { name: 'Choline', rda: 550, unit: 'mg' },
+    manganese: { name: 'Manganese', rda: 2.3, unit: 'mg' },
+    phosphorus: { name: 'Phosphorus', rda: 700, unit: 'mg' },
+    chromium: { name: 'Chromium', rda: 35, unit: 'mcg' }
 };
 
-// Daily recommended values (in mg)
-const dailyRecommended = {
-    iron: 18,
-    zinc: 11,
-    calcium: 1000
+const ingredients = {
+    // Vegetables per cup
+    tomato: { name: 'Tomato', serving: '1 cup', servingSize: 180 },
+    lettuce: { name: 'Lettuce', serving: '1 cup', servingSize: 47 },
+    spinach: { name: 'Spinach', serving: '4 cups', servingSize: 100 },
+    asparagus: { name: 'Asparagus', serving: '4 cups', servingSize: 134 },
+    brusselSprouts: { name: 'Brussels Sprouts', serving: '1 cup', servingSize: 88 },
+    
+    // Fruits
+    banana: { name: 'Banana', serving: '4 units', servingSize: 480 },
+    papaya: { name: 'Papaya', serving: '1 cup', servingSize: 145 },
+    avocado: { name: 'Avocado', serving: '2 cups', servingSize: 230 },
+    
+    // Proteins per specific weight
+    tofu: { name: 'Tofu', serving: '100g', servingSize: 100 },
+    lamb: { name: 'Lamb', serving: '200g', servingSize: 200 },
+    turkey: { name: 'Turkey', serving: '1kg', servingSize: 1000 },
+    chicken: { name: 'Chicken', serving: '1kg', servingSize: 1000 },
+    beef: { name: 'Beef', serving: '1kg', servingSize: 1000 },
+    salmon: { name: 'Salmon', serving: '500g', servingSize: 500 },
+    shrimp: { name: 'Shrimp', serving: '400g', servingSize: 400 },
+    
+    // Seeds and nuts
+    flaxseed: { name: 'Flaxseed', serving: '1 cup', servingSize: 168 },
+    pumpkinSeeds: { name: 'Pumpkin Seeds', serving: '2 cups', servingSize: 128 },
+    sunflowerSeeds: { name: 'Sunflower Seeds', serving: '1 cup', servingSize: 140 },
+    sesameSeeds: { name: 'Sesame Seeds', serving: '5 cups', servingSize: 144 },
+    cashews: { name: 'Cashews', serving: '1 cup', servingSize: 160 },
+    almonds: { name: 'Almonds', serving: '2 cups', servingSize: 240 }
 };
 
-// Update nutrient calculations when any input changes
-document.querySelectorAll('input[type="number"]').forEach(input => {
-    input.addEventListener('input', calculateNutrients);
+// Initialize the application
+document.addEventListener('DOMContentLoaded', () => {
+    initializeIngredients();
+    initializeNutrientBars();
+    setupLanguageToggle();
+    setupEventListeners();
 });
 
+function initializeIngredients() {
+    const ingredientsList = document.getElementById('ingredients-list');
+    
+    Object.entries(ingredients).forEach(([id, data]) => {
+        const item = document.createElement('div');
+        item.className = 'ingredient-item';
+        item.innerHTML = `
+            <label>${data.name} (${data.serving})</label>
+            <input type="number" id="${id}" min="0" value="0" step="0.1">
+        `;
+        ingredientsList.appendChild(item);
+    });
+}
+
+function initializeNutrientBars() {
+    const nutrientsDisplay = document.getElementById('nutrients-display');
+    
+    Object.entries(nutrients).forEach(([id, data]) => {
+        const bar = document.createElement('div');
+        bar.className = 'nutrient-bar';
+        bar.innerHTML = `
+            <div class="nutrient-label">${data.name} (${data.unit})</div>
+            <div class="progress-container">
+                <div class="progress-fill" id="${id}-progress" style="width: 0%"></div>
+                <span class="progress-label" id="${id}-label">0%</span>
+            </div>
+        `;
+        nutrientsDisplay.appendChild(bar);
+    });
+}
+
+function setupLanguageToggle() {
+    const enBtn = document.getElementById('enBtn');
+    const ltBtn = document.getElementById('ltBtn');
+    
+    enBtn.addEventListener('click', () => setLanguage('en'));
+    ltBtn.addEventListener('click', () => setLanguage('lt'));
+}
+
+function setupEventListeners() {
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', calculateNutrients);
+    });
+}
+
 function calculateNutrients() {
-    const totals = {
-        iron: 0,
-        zinc: 0,
-        calcium: 0
-    };
-
-    // Calculate totals from each ingredient
-    Object.keys(nutrientData).forEach(ingredient => {
-        const grams = parseFloat(document.getElementById(ingredient).value) || 0;
-        Object.keys(nutrientData[ingredient]).forEach(nutrient => {
-            totals[nutrient] += (nutrientData[ingredient][nutrient] * grams) / 100;
-        });
-    });
-
-    // Update progress bars and percentages
-    Object.keys(totals).forEach(nutrient => {
-        const percentage = (totals[nutrient] / dailyRecommended[nutrient]) * 100;
-        const cappedPercentage = Math.min(percentage, 100);
-        
-        document.getElementById(`${nutrient}-progress`).style.width = `${cappedPercentage}%`;
-        document.getElementById(`${nutrient}-percentage`).textContent = `${percentage.toFixed(1)}%`;
-    });
-
-    updateDailySummary(totals);
+    // Implement nutrient calculation logic here
+    // This would involve complex calculations based on the input values
+    // and updating the progress bars and summaries
+    updateNutrientBars();
+    updateSummaries();
 }
 
-function updateDailySummary(totals) {
-    // Update total nutrients consumed
-    const totalNutrientsList = Object.entries(totals)
-        .map(([nutrient, amount]) => `${nutrient.charAt(0).toUpperCase() + nutrient.slice(1)}: ${amount.toFixed(2)}mg`)
-        .join('<br>');
-    document.getElementById('total-nutrients-list').innerHTML = totalNutrientsList;
-
-    // Update remaining daily needs
-    const remainingNutrients = Object.entries(totals)
-        .map(([nutrient, amount]) => {
-            const remaining = Math.max(0, dailyRecommended[nutrient] - amount);
-            return `${nutrient.charAt(0).toUpperCase() + nutrient.slice(1)}: ${remaining.toFixed(2)}mg`;
-        })
-        .join('<br>');
-    document.getElementById('remaining-nutrients-list').innerHTML = remainingNutrients;
+function updateNutrientBars() {
+    // Update progress bars based on calculations
 }
 
-// Initial calculation
-calculateNutrients();
+function updateSummaries() {
+    // Update daily summaries and nutrient sources information
+}
+
+function setLanguage(lang) {
+    // Implement language switching logic
+    document.documentElement.setAttribute('lang', lang);
+    const buttons = document.querySelectorAll('.controls button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    document.getElementById(`${lang}Btn`).classList.add('active');
+}

@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,101 +8,49 @@
 </head>
 <body>
     <header>
-        <h1>Daily Nutrient Calculator</h1>
+        <h1>Nutrient Calculator</h1>
+        <h2>Maistinių medžiagų skaičiuoklė</h2>
     </header>
 
     <div class="container">
-        <div class="toolbar-container">
-            <!-- Left Toolbar: Ingredient Selection -->
-            <div class="toolbar ingredient-selector">
-                <h2>Select Ingredients</h2>
-                <div class="ingredient-list">
-                    <div class="ingredient-item">
-                        <label for="eggs">Eggs (grams)</label>
-                        <input type="number" id="eggs" min="0" value="0">
-                    </div>
-                    <div class="ingredient-item">
-                        <label for="spinach">Spinach (grams)</label>
-                        <input type="number" id="spinach" min="0" value="0">
-                    </div>
-                    <div class="ingredient-item">
-                        <label for="salmon">Salmon (grams)</label>
-                        <input type="number" id="salmon" min="0" value="0">
-                    </div>
-                    <div class="ingredient-item">
-                        <label for="quinoa">Quinoa (grams)</label>
-                        <input type="number" id="quinoa" min="0" value="0">
-                    </div>
-                    <div class="ingredient-item">
-                        <label for="almonds">Almonds (grams)</label>
-                        <input type="number" id="almonds" min="0" value="0">
-                    </div>
-                    <div class="ingredient-item">
-                        <label for="yogurt">Yogurt (grams)</label>
-                        <input type="number" id="yogurt" min="0" value="0">
-                    </div>
-                    <div class="ingredient-item">
-                        <label for="lentils">Lentils (grams)</label>
-                        <input type="number" id="lentils" min="0" value="0">
-                    </div>
-                    <div class="ingredient-item">
-                        <label for="broccoli">Broccoli (grams)</label>
-                        <input type="number" id="broccoli" min="0" value="0">
-                    </div>
-                    <div class="ingredient-item">
-                        <label for="chickpeas">Chickpeas (grams)</label>
-                        <input type="number" id="chickpeas" min="0" value="0">
-                    </div>
+        <div class="controls">
+            <button id="enBtn" class="active">English</button>
+            <button id="ltBtn">Lithuanian</button>
+        </div>
+
+        <div class="main-content">
+            <div class="ingredients-panel">
+                <h2 class="panel-title">Ingredients / Ingredientai</h2>
+                <div id="ingredients-list">
+                    <!-- Ingredients will be populated by JavaScript -->
                 </div>
             </div>
 
-            <!-- Right Toolbar: Nutrient Calculation -->
-            <div class="toolbar nutrient-display">
-                <h2>Nutrient Totals</h2>
-                <div class="nutrient-list">
-                    <div class="nutrient-item">
-                        <label>Iron:</label>
-                        <div class="progress-bar">
-                            <div class="progress" id="iron-progress"></div>
-                            <span class="percentage" id="iron-percentage">0%</span>
-                        </div>
-                    </div>
-                    <div class="nutrient-item">
-                        <label>Zinc:</label>
-                        <div class="progress-bar">
-                            <div class="progress" id="zinc-progress"></div>
-                            <span class="percentage" id="zinc-percentage">0%</span>
-                        </div>
-                    </div>
-                    <div class="nutrient-item">
-                        <label>Calcium:</label>
-                        <div class="progress-bar">
-                            <div class="progress" id="calcium-progress"></div>
-                            <span class="percentage" id="calcium-percentage">0%</span>
-                        </div>
-                    </div>
-                    <!-- Add more nutrients as needed -->
+            <div class="nutrients-panel">
+                <h2 class="panel-title">Nutrients / Maistinės medžiagos</h2>
+                <div id="nutrients-display">
+                    <!-- Nutrient bars will be populated by JavaScript -->
                 </div>
             </div>
         </div>
 
-        <!-- Bottom Toolbars -->
-        <div class="bottom-toolbars">
+        <div class="results-panel">
             <div class="daily-summary">
-                <h2>Daily Summary</h2>
-                <div class="summary-content">
-                    <div class="total-nutrients">
-                        <h3>Total Nutrients Consumed</h3>
-                        <div id="total-nutrients-list"></div>
-                    </div>
-                    <div class="remaining-nutrients">
-                        <h3>Remaining Daily Needs</h3>
-                        <div id="remaining-nutrients-list"></div>
-                    </div>
-                </div>
+                <h2>Daily Summary / Dienos suvestinė</h2>
+                <div id="total-nutrients"></div>
+                <div id="remaining-nutrients"></div>
+            </div>
+            <div class="sources-info">
+                <h2>Nutrient Sources / Maistinių medžiagų šaltiniai</h2>
+                <div id="nutrient-sources"></div>
             </div>
         </div>
     </div>
+
+    <footer>
+        <p>© 2024 HMUNITY - Nutrient Calculator</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>

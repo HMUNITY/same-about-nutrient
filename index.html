@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutrient Calculator</title>
+    <title>Advanced Nutrient Calculator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,14 +22,14 @@
             <div class="ingredients-panel">
                 <h2 class="panel-title">Ingredients / Ingredientai</h2>
                 <div id="ingredients-list">
-                    <!-- Ingredients will be populated by JavaScript -->
+                    <!-- Ingredients dynamically added here -->
                 </div>
             </div>
 
             <div class="nutrients-panel">
                 <h2 class="panel-title">Nutrients / Maistinės medžiagos</h2>
                 <div id="nutrients-display">
-                    <!-- Nutrient bars will be populated by JavaScript -->
+                    <!-- Nutrient bars dynamically generated -->
                 </div>
             </div>
         </div>
@@ -40,17 +40,21 @@
                 <div id="total-nutrients"></div>
                 <div id="remaining-nutrients"></div>
             </div>
-            <div class="sources-info">
-                <h2>Nutrient Sources / Maistinių medžiagų šaltiniai</h2>
-                <div id="nutrient-sources"></div>
+
+            <div class="ingredients-summary">
+                <h2>Ingredient Details</h2>
+                <div id="ingredients-details">
+                    <!-- Nutrient breakdown for each ingredient -->
+                </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>© 2024 HMUNITY - Nutrient Calculator</p>
+        <p>© 2025 HMUNITY - Advanced Nutrient Calculator</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

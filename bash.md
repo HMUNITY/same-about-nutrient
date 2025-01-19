@@ -1,6 +1,6 @@
-git clone https://github.com/HMUNITY/same-about-nutrient.git
-cd same-about-nutrient
-
+git init
 git add .
-git commit -m "Initial commit with nutrient calculator"
-git push origin main
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/HMUNITY/same-about-nutrient.git
+git push -u origin main

@@ -1,32 +1,26 @@
-/* style.css */
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
     --background-color: #ecf0f1;
     --panel-background: #ffffff;
     --border-radius: 8px;
-    --shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--background-color);
-    color: #2c3e50;
+    color: var(--primary-color);
     line-height: 1.6;
+    margin: 0;
+    padding: 0;
 }
 
 header {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-    padding: 2rem 0;
     text-align: center;
-    margin-bottom: 2rem;
+    padding: 2rem 0;
 }
 
 .container {
@@ -37,7 +31,7 @@ header {
 
 .controls {
     text-align: center;
-    margin-bottom: 2rem;
+    margin: 2rem 0;
 }
 
 .controls button {
@@ -47,7 +41,7 @@ header {
     border-radius: var(--border-radius);
     background: var(--panel-background);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease;
 }
 
 .controls button.active {
@@ -56,13 +50,14 @@ header {
 }
 
 .main-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     gap: 2rem;
     margin-bottom: 2rem;
 }
 
-.ingredients-panel, .nutrients-panel, .results-panel {
+.ingredients-panel,
+.nutrients-panel {
+    flex: 1;
     background: var(--panel-background);
     border-radius: var(--border-radius);
     padding: 2rem;
@@ -71,7 +66,7 @@ header {
 
 .panel-title {
     color: var(--primary-color);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     border-bottom: 2px solid var(--secondary-color);
     padding-bottom: 0.5rem;
 }
@@ -80,28 +75,24 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.8rem;
-    background: #f8f9fa;
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
+    padding: 0.5rem 0;
 }
 
 .ingredient-item input {
-    width: 100px;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
+    width: 80px;
+    padding: 0.3rem;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 
 .nutrient-bar {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .progress-container {
     background: #eee;
     border-radius: 10px;
     height: 20px;
-    overflow: hidden;
     position: relative;
 }
 
@@ -113,50 +104,17 @@ header {
 
 .progress-label {
     position: absolute;
-    right: 10px;
     top: 50%;
+    right: 10px;
     transform: translateY(-50%);
-    color: white;
     font-size: 0.8rem;
-    text-shadow: 0 0 2px rgba(0,0,0,0.5);
+    color: white;
 }
 
-.results-panel {
+.ingredients-summary {
     margin-top: 2rem;
-}
-
-.daily-summary {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.sources-info {
-    border-top: 1px solid #ddd;
-    padding-top: 2rem;
-}
-
-footer {
-    text-align: center;
-    padding: 2rem 0;
-    color: var(--primary-color);
     background: var(--panel-background);
-    margin-top: 2rem;
-}
-
-@media (max-width: 1024px) {
-    .main-content {
-        grid-template-columns: 1fr;
-    }
-
-    .daily-summary {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding: 0 10px;
-    }
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
 }

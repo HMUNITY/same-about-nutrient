@@ -1,51 +1,91 @@
-const nutrients = {
-    vitaminB1: { name: "Vitamin B1", rda: 1.1, unit: "mg" },
-    vitaminB2: { name: "Vitamin B2", rda: 1.1, unit: "mg" },
-    vitaminB3: { name: "Vitamin B3", rda: 14, unit: "mg" },
-    calcium: { name: "Calcium", rda: 1000, unit: "mg" },
-    iron: { name: "Iron", rda: 18, unit: "mg" },
-    magnesium: { name: "Magnesium", rda: 320, unit: "mg" },
-    vitaminC: { name: "Vitamin C", rda: 75, unit: "mg" },
-};
+const ingredients = [];
+const micronutrients = {};
 
-const ingredients = {
-    asparagus: { name: "Asparagus", grams: 100, nutrients: { vitaminB1: 0.15, vitaminB2: 0.14 } },
-    tuna: { name: "Tuna", grams: 100, nutrients: { vitaminB3: 8.5, vitaminB6: 0.3, vitaminB12: 2.5 } },
-    spinach: { name: "Spinach", grams: 100, nutrients: { calcium: 99, iron: 2.7, magnesium: 79, vitaminC: 28.1 } },
-    orange: { name: "Orange", grams: 100, nutrients: { vitaminC: 53.2, calcium: 40 } },
-};
+// Add ingredient
+document.getElementById("add-ingredient").addEventListener("click", () => {
+  const name = document.getElementById("ingredient-name").value;
+  const amount = parseFloat(document.getElementById("ingredient-amount").value);
 
-document.addEventListener("DOMContentLoaded", () => {
-    populateIngredients();
-    populateNutrientBars();
+  if (name && amount > 0) {
+    ingredients.push({ name, amount });
+    updateIngredientList();
+    calculateMicronutrients();
+  } else {
+    alert("Please enter valid ingredient details!");
+  }
 });
 
-function populateIngredients() {
-    const list = document.getElementById("ingredients-list");
-    Object.values(ingredients).forEach((item) => {
-        const div = document.createElement("div");
-        div.className = "ingredient-item";
-        div.innerHTML = `
-            <label>${item.name} (${item.grams}g)</label>
-            <input type="number" min="0" value="0" step="10">
-        `;
-        list.appendChild(div);
-    });
+// Update ingredient list
+function updateIngredientList() {
+  const ingredientList = document.getElementById("ingredient-list");
+  ingredientList.innerHTML = "";
+  ingredients.forEach((ingredient, index) => {
+    const li = document.createElement("li");
+    li.textContent = `${ingredient.name} - ${ingredient.amount}g`;
+    li.appendChild(createDeleteButton(index));
+    ingredientList.appendChild(li);
+  });
 }
 
-function populateNutrientBars() {
-    const display = document.getElementById("nutrients-display");
-    Object.entries(nutrients).forEach(([id, nutrient]) => {
-        const bar = document.createElement("div");
-        bar.className = "nutrient-bar";
-        bar.innerHTML = `
-            <div>${nutrient.name}</div>
-            <div class="progress-container">
-                <div class="progress-fill" id="${id}-fill" style="width: 0%"></div>
-                <span class="progress-label" id="${id}-label">0%</span>
-            </div>
-        `;
-        display.appendChild(bar);
-    });
+// Create delete button
+function createDeleteButton(index) {
+  const button = document.createElement("button");
+  button.textContent = "Remove";
+  button.addEventListener("click", () => {
+    ingredients.splice(index, 1);
+    updateIngredientList();
+    calculateMicronutrients();
+  });
+  return button;
 }
+
+// Calculate micronutrients
+function calculateMicronutrients() {
+  // Example micronutrient calculation logic
+  const summary = { VitaminA: 0, Calcium: 0 };
+  ingredients.forEach((ingredient) => {
+    // Replace with real data or API calls
+    summary.VitaminA += ingredient.amount * 0.05;
+    summary.Calcium += ingredient.amount * 0.02;
+  });
+
+  displayMicronutrientSummary(summary);
+}
+
+// Display micronutrient summary
+function displayMicronutrientSummary(summary) {
+  const summaryList = document.getElementById("micronutrient-summary");
+  summaryList.innerHTML = "";
+  for (const [key, value] of Object.entries(summary)) {
+    const li = document.createElement("li");
+    li.textContent = `${key}: ${value.toFixed(2)}%`;
+    summaryList.appendChild(li);
+  }
+}
+
+// Save results
+document.getElementById("save-button").addEventListener("click", () => {
+  localStorage.setItem("ingredients", JSON.stringify(ingredients));
+  alert("Data saved!");
+});
+
+// Delete results
+document.getElementById("delete-button").addEventListener("click", () => {
+  localStorage.clear();
+  ingredients.length = 0;
+  updateIngredientList();
+  calculateMicronutrients();
+  alert("Data cleared!");
+});
+
+// File upload logic
+document.getElementById("upload-button").addEventListener("click", () => {
+  const fileInput = document.getElementById("file-upload");
+  if (fileInput.files.length > 0) {
+    alert("File uploaded successfully!");
+    fileInput.value = ""; // Reset file input
+  } else {
+    alert("Please select a file to upload.");
+  }
+});
 

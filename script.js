@@ -1,4 +1,5 @@
 const ingredients = [];
+const dailyValues = { VitaminA: 100, Calcium: 100 }; // Example daily values (%)
 const micronutrients = {};
 
 // Add ingredient
@@ -7,18 +8,28 @@ document.getElementById("add-ingredient").addEventListener("click", () => {
   const amount = parseFloat(document.getElementById("ingredient-amount").value);
 
   if (name && amount > 0) {
-    ingredients.push({ name, amount });
+    const newIngredient = { name, amount, micronutrients: calculateIngredientMicronutrients(amount) };
+    ingredients.push(newIngredient);
     updateIngredientList();
     calculateMicronutrients();
   } else {
-    alert("Please enter valid ingredient details!");
+    alert("Please provide valid ingredient details!");
   }
 });
 
-// Update ingredient list
+// Simulated micronutrient data per gram
+function calculateIngredientMicronutrients(amount) {
+  return {
+    VitaminA: amount * 0.05,
+    Calcium: amount * 0.02,
+  };
+}
+
+// Update ingredient list in the sidebar
 function updateIngredientList() {
   const ingredientList = document.getElementById("ingredient-list");
   ingredientList.innerHTML = "";
+
   ingredients.forEach((ingredient, index) => {
     const li = document.createElement("li");
     li.textContent = `${ingredient.name} - ${ingredient.amount}g`;
@@ -27,7 +38,7 @@ function updateIngredientList() {
   });
 }
 
-// Create delete button
+// Create a delete button for ingredients
 function createDeleteButton(index) {
   const button = document.createElement("button");
   button.textContent = "Remove";
@@ -39,39 +50,55 @@ function createDeleteButton(index) {
   return button;
 }
 
-// Calculate micronutrients
+// Calculate the combined micronutrients
 function calculateMicronutrients() {
-  // Example micronutrient calculation logic
-  const summary = { VitaminA: 0, Calcium: 0 };
+  const totalMicronutrients = { VitaminA: 0, Calcium: 0 };
+
   ingredients.forEach((ingredient) => {
-    // Replace with real data or API calls
-    summary.VitaminA += ingredient.amount * 0.05;
-    summary.Calcium += ingredient.amount * 0.02;
+    for (const key in ingredient.micronutrients) {
+      totalMicronutrients[key] += ingredient.micronutrients[key];
+    }
   });
 
-  displayMicronutrientSummary(summary);
+  updateMicronutrientSummary(totalMicronutrients);
+  recommendMicronutrientDeficits(totalMicronutrients);
 }
 
-// Display micronutrient summary
-function displayMicronutrientSummary(summary) {
-  const summaryList = document.getElementById("micronutrient-summary");
-  summaryList.innerHTML = "";
-  for (const [key, value] of Object.entries(summary)) {
+// Update the micronutrient summary in the sidebar
+function updateMicronutrientSummary(summary) {
+  const micronutrientSummary = document.getElementById("micronutrient-summary");
+  micronutrientSummary.innerHTML = "";
+
+  for (const key in summary) {
     const li = document.createElement("li");
-    li.textContent = `${key}: ${value.toFixed(2)}%`;
-    summaryList.appendChild(li);
+    li.textContent = `${key}: ${summary[key].toFixed(2)}%`;
+    micronutrientSummary.appendChild(li);
   }
 }
 
-// Save results
-document.getElementById("save-button").addEventListener("click", () => {
+// Recommend deficits to reach daily values
+function recommendMicronutrientDeficits(summary) {
+  const recommendation = document.getElementById("recommendation");
+  recommendation.innerHTML = "";
+
+  for (const key in dailyValues) {
+    const deficit = dailyValues[key] - summary[key];
+    if (deficit > 0) {
+      const div = document.createElement("div");
+      div.textContent = `You need ${deficit.toFixed(2)}% more ${key}`;
+      recommendation.appendChild(div);
+    }
+  }
+}
+
+// Save data to localStorage
+document.getElementById("save-data").addEventListener("click", () => {
   localStorage.setItem("ingredients", JSON.stringify(ingredients));
-  alert("Data saved!");
+  alert("Data saved successfully!");
 });
 
-// Delete results
-document.getElementById("delete-button").addEventListener("click", () => {
-  localStorage.clear();
+// Clear data
+document.getElementById("clear-data").addEventListener("click", () => {
   ingredients.length = 0;
   updateIngredientList();
   calculateMicronutrients();
@@ -83,7 +110,7 @@ document.getElementById("upload-button").addEventListener("click", () => {
   const fileInput = document.getElementById("file-upload");
   if (fileInput.files.length > 0) {
     alert("File uploaded successfully!");
-    fileInput.value = ""; // Reset file input
+    fileInput.value = "";
   } else {
     alert("Please select a file to upload.");
   }

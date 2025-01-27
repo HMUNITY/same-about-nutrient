@@ -3,6 +3,7 @@ cat > index.html << 'EOF'
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutrient Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -18,24 +19,69 @@ cat > index.html << 'EOF'
             <ul id="ingredient-list"></ul>
         </aside>
 
+        <section id="main-section">
+            <h2>Analysis</h2>
+            <div id="uploaded-image">
+                <img src="food1.jpg" alt="Food Image 1">
+                <img src="food2.jpg" alt="Food Image 2">
+            </div>
+        </section>
+
         <aside id="right-sidebar">
             <h2>Micronutrient Summary</h2>
             <ul id="micronutrient-summary"></ul>
         </aside>
-
-        <section id="results">
-            <h2>Nutrient Goals & Recommendations</h2>
-            <div id="recommendations"></div>
-            <div id="uploaded-image"></div>
-            <input type="file" id="file-upload" accept="image/*">
-            <div class="session-controls">
-                <button id="save-data">Save Session</button>
-                <button id="clear-data">Reset Tracker</button>
-            </div>
-        </section>
     </div>
+
+    <section id="details-section">
+        <h2>Details</h2>
+        
+        <!-- Expandable Ingredients List -->
+        <div class="details-list">
+            <h3>Ingredients List</h3>
+            <ul id="detailed-ingredients">
+                <li>
+                    <span>Ingredient 1: Tomato</span>
+                    <ul>
+                        <li>Amount: 100g</li>
+                        <li>Vitamin C: 23mg</li>
+                        <li>Calories: 18</li>
+                    </ul>
+                </li>
+                <li>
+                    <span>Ingredient 2: Carrot</span>
+                    <ul>
+                        <li>Amount: 80g</li>
+                        <li>Vitamin A: 835μg</li>
+                        <li>Calories: 30</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Expandable Nutrients List -->
+        <div class="details-list">
+            <h3>Nutrients List</h3>
+            <ul id="detailed-nutrients">
+                <li>
+                    <span>Nutrient 1: Vitamin C</span>
+                    <ul>
+                        <li>Tomato: 23mg</li>
+                        <li>Total: 23mg</li>
+                    </ul>
+                </li>
+                <li>
+                    <span>Nutrient 2: Vitamin A</span>
+                    <ul>
+                        <li>Carrot: 835μg</li>
+                        <li>Total: 835μg</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
     <script src="script.js"></script>
 </body>
 </html>
 EOF
-

@@ -4,13 +4,13 @@ cat > index.html << 'EOF'
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutrient Tracker with Circadian Rhythm</title>
+    <title>Circadian Nutrient Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <h1>Circadian Nutrient Tracker</h1>
-        <p>Optimize your meals based on the time of day and your natural rhythm.</p>
+        <p>Optimize your meals based on your daily rhythm.</p>
     </header>
 
     <div id="app-container">
@@ -18,9 +18,11 @@ cat > index.html << 'EOF'
         <aside id="left-sidebar">
             <h2>Ingredients</h2>
             <form id="ingredient-form">
-                <input type="text" id="ingredient-name" placeholder="Ingredient Name">
-                <input type="number" id="ingredient-amount" placeholder="Amount (g)">
+                <input type="text" id="ingredient-name" placeholder="Ingredient Name" required>
+                <input type="number" id="ingredient-amount" placeholder="Amount (g)" required>
                 <button type="button" id="add-ingredient">Add</button>
+                <button type="button" id="save-ingredients">Save</button>
+                <button type="button" id="erase-ingredients">Erase</button>
             </form>
             <ul id="ingredient-list"></ul>
         </aside>
@@ -33,7 +35,7 @@ cat > index.html << 'EOF'
                     <p id="current-time"></p>
                 </div>
                 <div id="time-based-suggestions">
-                    <h3>Time-Based Meal Suggestions</h3>
+                    <h3>Time-Based Suggestions</h3>
                     <p id="meal-suggestions">Loading suggestions...</p>
                 </div>
             </div>
@@ -53,39 +55,22 @@ cat > index.html << 'EOF'
     <!-- Details Section -->
     <section id="details-section">
         <h2>Details</h2>
-
-        <!-- Expandable Ingredients List -->
         <div class="details-list">
             <h3>Ingredients List</h3>
             <ul id="detailed-ingredients">
-                <li>
-                    <span>Ingredient 1: Tomato</span>
-                    <ul>
-                        <li>Amount: 100g</li>
-                        <li>Vitamin C: 23mg</li>
-                        <li>Calories: 18</li>
-                    </ul>
-                </li>
+                <!-- Filled dynamically -->
             </ul>
         </div>
-
-        <!-- Expandable Nutrients List -->
         <div class="details-list">
             <h3>Nutrients List</h3>
             <ul id="detailed-nutrients">
-                <li>
-                    <span>Nutrient 1: Vitamin C</span>
-                    <ul>
-                        <li>Tomato: 23mg</li>
-                        <li>Total: 23mg</li>
-                    </ul>
-                </li>
+                <!-- Filled dynamically -->
             </ul>
         </div>
     </section>
 
     <footer>
-        <p>Contact us for personalized guidance: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
+        <p>Contact: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
     </footer>
 
     <script src="script.js"></script>

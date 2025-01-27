@@ -1,4 +1,4 @@
-cat > style.css << 'EOL'
+cat > style.css << 'EOF'
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
@@ -65,4 +65,4 @@ button:hover {
     max-width: 300px;
     margin: 10px 0;
 }
-EOL
+EOF

@@ -1,5 +1,8 @@
 cat > script.js << 'EOF'
 document.addEventListener('DOMContentLoaded', () => {
+    const ingredientList = [];
+    const nutrientSummary = [];
+
     // Clock Update
     function updateClock() {
         const now = new Date();
@@ -14,25 +17,45 @@ document.addEventListener('DOMContentLoaded', () => {
         const hours = new Date().getHours();
         let suggestions = '';
         if (hours < 10) {
-            suggestions = 'Start your day with a high-protein breakfast and fresh fruit.';
+            suggestions = 'Morning: Start with proteins and fruits.';
         } else if (hours < 14) {
-            suggestions = 'Focus on a balanced lunch with vegetables and whole grains.';
+            suggestions = 'Afternoon: Balanced lunch with whole grains.';
         } else if (hours < 18) {
-            suggestions = 'Have a light snack—nuts or yogurt are great options.';
+            suggestions = 'Evening: Light snacks like nuts or yogurt.';
         } else {
-            suggestions = 'End the day with a light dinner, avoiding caffeine.';
+            suggestions = 'Night: Light dinner, avoid caffeine.';
         }
         document.getElementById('meal-suggestions').innerText = suggestions;
     }
 
+    // Add Ingredient
+    document.getElementById('add-ingredient').addEventListener('click', () => {
+        const name = document.getElementById('ingredient-name').value;
+        const amount = document.getElementById('ingredient-amount').value;
+
+        if (name && amount) {
+            ingredientList.push({ name, amount });
+            const li = document.createElement('li');
+            li.textContent = `${name} - ${amount}g`;
+            document.getElementById('ingredient-list').appendChild(li);
+            document.getElementById('ingredient-name').value = '';
+            document.getElementById('ingredient-amount').value = '';
+        }
+    });
+
+    // Save Ingredients
+    document.getElementById('save-ingredients').addEventListener('click', () => {
+        console.log('Ingredients saved:', ingredientList);
+        alert('Ingredients saved!');
+    });
+
+    // Erase Ingredients
+    document.getElementById('erase-ingredients').addEventListener('click', () => {
+        ingredientList.length = 0;
+        document.getElementById('ingredient-list').innerHTML = '';
+        alert('Ingredients erased!');
+    });
+
     // Initial Load
     updateClock();
-    getSuggestions();
-
-    // Update Clock and Suggestions Every Minute
-    setInterval(() => {
-        updateClock();
-        getSuggestions();
-    }, 60000);
-});
-EOF
+    getSuggestions

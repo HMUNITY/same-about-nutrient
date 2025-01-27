@@ -4,11 +4,17 @@ cat > index.html << 'EOF'
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutrient Tracker</title>
+    <title>Nutrient Tracker with Circadian Rhythm</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>Circadian Nutrient Tracker</h1>
+        <p>Optimize your meals based on the time of day and your natural rhythm.</p>
+    </header>
+
     <div id="app-container">
+        <!-- Left Sidebar: Ingredients -->
         <aside id="left-sidebar">
             <h2>Ingredients</h2>
             <form id="ingredient-form">
@@ -19,23 +25,35 @@ cat > index.html << 'EOF'
             <ul id="ingredient-list"></ul>
         </aside>
 
+        <!-- Main Section: Circadian Clock -->
         <section id="main-section">
-            <h2>Analysis</h2>
+            <h2>Circadian Clock</h2>
+            <div id="circadian-clock">
+                <div id="clock">
+                    <p id="current-time"></p>
+                </div>
+                <div id="time-based-suggestions">
+                    <h3>Time-Based Meal Suggestions</h3>
+                    <p id="meal-suggestions">Loading suggestions...</p>
+                </div>
+            </div>
             <div id="uploaded-image">
                 <img src="food1.jpg" alt="Food Image 1">
                 <img src="food2.jpg" alt="Food Image 2">
             </div>
         </section>
 
+        <!-- Right Sidebar: Nutrient Summary -->
         <aside id="right-sidebar">
             <h2>Micronutrient Summary</h2>
             <ul id="micronutrient-summary"></ul>
         </aside>
     </div>
 
+    <!-- Details Section -->
     <section id="details-section">
         <h2>Details</h2>
-        
+
         <!-- Expandable Ingredients List -->
         <div class="details-list">
             <h3>Ingredients List</h3>
@@ -46,14 +64,6 @@ cat > index.html << 'EOF'
                         <li>Amount: 100g</li>
                         <li>Vitamin C: 23mg</li>
                         <li>Calories: 18</li>
-                    </ul>
-                </li>
-                <li>
-                    <span>Ingredient 2: Carrot</span>
-                    <ul>
-                        <li>Amount: 80g</li>
-                        <li>Vitamin A: 835μg</li>
-                        <li>Calories: 30</li>
                     </ul>
                 </li>
             </ul>
@@ -70,16 +80,13 @@ cat > index.html << 'EOF'
                         <li>Total: 23mg</li>
                     </ul>
                 </li>
-                <li>
-                    <span>Nutrient 2: Vitamin A</span>
-                    <ul>
-                        <li>Carrot: 835μg</li>
-                        <li>Total: 835μg</li>
-                    </ul>
-                </li>
             </ul>
         </div>
     </section>
+
+    <footer>
+        <p>Contact us for personalized guidance: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
+    </footer>
 
     <script src="script.js"></script>
 </body>

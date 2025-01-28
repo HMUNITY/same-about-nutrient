@@ -25,30 +25,19 @@ header {
     overflow: hidden;
 }
 
-aside, section {
+aside {
+    background-color: #d6f5d6; /* Green for selection */
+}
+
+section {
+    background-color: #f7e5d6; /* Brown for results */
+}
+
+.details-list {
+    background-color: #e5d6f5; /* Purple for lists */
     padding: 20px;
-    flex: 1;
-}
-
-.details-list ul {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-}
-
-.details-list li {
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #ffffff;
-    border: 1px solid #d4d4d4;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.details-list h3 {
+    border-radius: 8px;
     margin-top: 20px;
-    color: #5cdb95;
-    font-size: 1.2em;
 }
 
 button {

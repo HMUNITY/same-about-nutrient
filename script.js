@@ -1,61 +1,40 @@
 cat > script.js << 'EOF'
 document.addEventListener('DOMContentLoaded', () => {
-    const state = {
-        ingredients: [],
-        nutrients: {
-            VitaminA: 700,
-            VitaminC: 75,
-            VitaminD: 15,
-            Calcium: 1000,
-            Iron: 18,
-            Magnesium: 310
-            // Add more nutrients here...
-        },
-        dailyValues: {
-            VitaminA: 700,
-            VitaminC: 75,
-            VitaminD: 15,
-            Calcium: 1000,
-            Iron: 18,
-            Magnesium: 310
-        }
-    };
+    const nutrients = [
+        { name: "Vitamin A", source: "Spinach, Carrots, Sweet Potatoes" },
+        { name: "Vitamin C", source: "Citrus Fruits, Brussels Sprouts, Strawberries" },
+        { name: "Calcium", source: "Milk, Cheese, Yogurt, Tofu" },
+        { name: "Iron", source: "Red Meat, Beans, Spinach" },
+        { name: "Magnesium", source: "Almonds, Spinach, Whole Grains" }
+    ];
 
-    // Update Clock
-    function updateClock() {
-        const now = new Date();
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        document.getElementById('current-time').textContent = `Time: ${hours}:${minutes}`;
+    const ingredients = [
+        { name: "Spinach", nutrients: "Vitamin A, Magnesium" },
+        { name: "Carrots", nutrients: "Vitamin A" },
+        { name: "Sweet Potatoes", nutrients: "Vitamin A, Vitamin C" },
+        { name: "Milk", nutrients: "Calcium" },
+        { name: "Red Meat", nutrients: "Iron" }
+    ];
+
+    function loadNutrients() {
+        const nutrientList = document.getElementById('nutrient-list');
+        nutrients.forEach(nutrient => {
+            const li = document.createElement('li');
+            li.textContent = `${nutrient.name}: Found in ${nutrient.source}`;
+            nutrientList.appendChild(li);
+        });
     }
 
-    // Add Ingredient
-    document.getElementById('add-ingredient').addEventListener('click', () => {
-        const name = document.getElementById('ingredient-name').value;
-        const amount = parseInt(document.getElementById('ingredient-amount').value);
-
-        if (name && amount > 0) {
-            state.ingredients.push({ name, amount });
+    function loadIngredients() {
+        const ingredientList = document.getElementById('ingredient-options-list');
+        ingredients.forEach(ingredient => {
             const li = document.createElement('li');
-            li.textContent = `${name} - ${amount}g`;
-            document.getElementById('ingredient-list').appendChild(li);
-        }
-    });
+            li.textContent = `${ingredient.name}: Provides ${ingredient.nutrients}`;
+            ingredientList.appendChild(li);
+        });
+    }
 
-    // Save Ingredients
-    document.getElementById('save-ingredients').addEventListener('click', () => {
-        alert('Ingredients saved!');
-    });
-
-    // Erase Ingredients
-    document.getElementById('erase-ingredients').addEventListener('click', () => {
-        state.ingredients = [];
-        document.getElementById('ingredient-list').innerHTML = '';
-        alert('Ingredients erased!');
-    });
-
-    // Initial Setup
-    updateClock();
-    setInterval(updateClock, 60000); // Update every minute
+    loadNutrients();
+    loadIngredients();
 });
 EOF

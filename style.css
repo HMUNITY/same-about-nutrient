@@ -40,6 +40,27 @@ aside, section {
     border-left: 2px solid #e0e0e0;
 }
 
+.details-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.details-list li {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.details-list h3 {
+    margin-top: 20px;
+    color: #5cdb95;
+    font-size: 1.2em;
+}
+
 button {
     background-color: #5cdb95;
     color: white;

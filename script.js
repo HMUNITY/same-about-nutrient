@@ -1,18 +1,21 @@
 cat > script.js << 'EOF'
 document.addEventListener('DOMContentLoaded', () => {
     const nutrients = [
-        { name: "Vitamin A", benefit: "Supports vision and immune function." },
+        { name: "Vitamin A", benefit: "Supports vision, immune function, and skin health." },
+        { name: "Vitamin B1", benefit: "Converts food into energy and supports cardiovascular health." },
         { name: "Vitamin C", benefit: "Boosts immunity and aids iron absorption." },
-        { name: "Iron", benefit: "Essential for oxygen transport in the body." },
+        { name: "Iron", benefit: "Essential for oxygen transport and energy production." },
         { name: "Magnesium", benefit: "Supports muscles, nerves, and energy." },
-        { name: "Potassium", benefit: "Helps maintain fluid balance and heart rhythm." },
+        { name: "Potassium", benefit: "Maintains fluid balance and heart rhythm." },
         { name: "Zinc", benefit: "Strengthens the immune system and supports lung function." }
     ];
 
     const ingredients = [
         "Spinach", "Carrots", "Sweet Potatoes", "Milk", "Yogurt", "Cheese", "Tofu",
         "Salmon", "Sardines", "Tuna", "Eggs", "Bananas", "Broccoli", "Brussels Sprouts",
-        "Papaya", "Sunflower Seeds", "Pumpkin Seeds", "Cashews"
+        "Papaya", "Sunflower Seeds", "Pumpkin Seeds", "Cashews", "Asparagus", "Onions",
+        "Mushrooms (Shiitake, Crimini)", "Rye", "Tomatoes", "Celery", "Sesame Seeds",
+        "Oregano", "Basil", "Almonds", "Brown Rice", "Garbanzo Beans", "Swiss Chard"
     ];
 
     const state = {
@@ -43,9 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = document.getElementById('ingredient-amount').value;
 
         if (name && amount) {
-            state.ingredients.push({ name, amount });
+            const now = new Date();
+            const timeAdded = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+            state.ingredients.push({ name, amount, time: timeAdded });
+
             const li = document.createElement('li');
-            li.textContent = `${name} - ${amount}g`;
+            li.textContent = `${name} - ${amount}g (Added at ${timeAdded})`;
             document.getElementById('ingredient-list').appendChild(li);
 
             document.getElementById('ingredient-name').value = '';
@@ -65,11 +71,4 @@ document.addEventListener('DOMContentLoaded', () => {
         nutrientList.appendChild(li);
     });
 
-    const ingredientList = document.getElementById('ingredient-options');
-    ingredients.forEach(ingredient => {
-        const li = document.createElement('li');
-        li.textContent = ingredient;
-        ingredientList.appendChild(li);
-    });
-});
-EOF
+    const ingredientList = document.getElementById

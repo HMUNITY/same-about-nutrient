@@ -39,10 +39,6 @@ cat > index.html << 'EOF'
                     <p id="meal-suggestions">Loading suggestions...</p>
                 </div>
             </div>
-            <div id="uploaded-image">
-                <img src="food1.jpg" alt="Food Image 1">
-                <img src="food2.jpg" alt="Food Image 2">
-            </div>
         </section>
 
         <!-- Right Sidebar: Nutrient Summary -->
@@ -55,16 +51,44 @@ cat > index.html << 'EOF'
     <!-- Details Section -->
     <section id="details-section">
         <h2>Details</h2>
+
+        <!-- Nutrient Benefits -->
         <div class="details-list">
-            <h3>Nutrients List</h3>
-            <ul id="nutrient-list">
-                <!-- Filled dynamically -->
+            <h3>Nutrient Benefits</h3>
+            <ul id="nutrient-benefits">
+                <li>Vitamin A: Supports vision, immune function, and skin health.</li>
+                <li>Vitamin C: Boosts immunity, promotes collagen production, and aids iron absorption.</li>
+                <li>Vitamin D: Regulates calcium and phosphorus for strong bones.</li>
+                <li>Iron: Essential for oxygen transport and energy production.</li>
+                <li>Magnesium: Supports muscle and nerve function, and energy production.</li>
             </ul>
         </div>
+
+        <!-- Ingredients for Selection -->
         <div class="details-list">
-            <h3>Ingredients List</h3>
-            <ul id="ingredient-options-list">
-                <!-- Filled dynamically -->
+            <h3>Ingredients for Selection</h3>
+            <ul id="ingredient-options">
+                <li>Spinach: Provides Vitamin A, Magnesium, and Iron.</li>
+                <li>Carrots: Excellent source of Vitamin A.</li>
+                <li>Sweet Potatoes: Rich in Vitamin A, Vitamin C, and Potassium.</li>
+                <li>Milk: Provides Calcium and Vitamin D.</li>
+                <li>Salmon: Contains Vitamin D, Omega-3s, and Vitamin B12.</li>
+                <li>Eggs: Rich in Vitamin D and B12.</li>
+            </ul>
+        </div>
+
+        <!-- Ingredients to Look For -->
+        <div class="details-list">
+            <h3>Ingredients to Look For</h3>
+            <ul id="ingredient-search">
+                <li>Brussels Sprouts</li>
+                <li>Seaweed</li>
+                <li>Sunflower Seeds</li>
+                <li>Shiitake Mushrooms</li>
+                <li>Cashews</li>
+                <li>Yogurt</li>
+                <li>Tofu</li>
+                <li>Papaya</li>
             </ul>
         </div>
     </section>

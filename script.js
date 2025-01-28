@@ -1,40 +1,53 @@
 cat > script.js << 'EOF'
 document.addEventListener('DOMContentLoaded', () => {
     const nutrients = [
-        { name: "Vitamin A", source: "Spinach, Carrots, Sweet Potatoes" },
-        { name: "Vitamin C", source: "Citrus Fruits, Brussels Sprouts, Strawberries" },
-        { name: "Calcium", source: "Milk, Cheese, Yogurt, Tofu" },
-        { name: "Iron", source: "Red Meat, Beans, Spinach" },
-        { name: "Magnesium", source: "Almonds, Spinach, Whole Grains" }
+        { name: "Vitamin A", benefit: "Supports vision, immune function, and skin health." },
+        { name: "Vitamin C", benefit: "Boosts immunity, promotes collagen production, and aids iron absorption." },
+        { name: "Vitamin D", benefit: "Regulates calcium and phosphorus for strong bones." },
+        { name: "Iron", benefit: "Essential for oxygen transport and energy production." },
+        { name: "Magnesium", benefit: "Supports muscle and nerve function, and energy production." }
     ];
 
     const ingredients = [
-        { name: "Spinach", nutrients: "Vitamin A, Magnesium" },
-        { name: "Carrots", nutrients: "Vitamin A" },
-        { name: "Sweet Potatoes", nutrients: "Vitamin A, Vitamin C" },
-        { name: "Milk", nutrients: "Calcium" },
-        { name: "Red Meat", nutrients: "Iron" }
+        { name: "Spinach", provides: "Vitamin A, Magnesium, and Iron" },
+        { name: "Carrots", provides: "Vitamin A" },
+        { name: "Sweet Potatoes", provides: "Vitamin A, Vitamin C, and Potassium" },
+        { name: "Milk", provides: "Calcium and Vitamin D" },
+        { name: "Salmon", provides: "Vitamin D, Omega-3s, and Vitamin B12" },
+        { name: "Eggs", provides: "Vitamin D and B12" }
     ];
 
-    function loadNutrients() {
-        const nutrientList = document.getElementById('nutrient-list');
+    const ingredientsToSearch = ["Brussels Sprouts", "Seaweed", "Sunflower Seeds", "Shiitake Mushrooms", "Cashews", "Yogurt", "Tofu", "Papaya"];
+
+    function loadNutrientBenefits() {
+        const list = document.getElementById('nutrient-benefits');
         nutrients.forEach(nutrient => {
             const li = document.createElement('li');
-            li.textContent = `${nutrient.name}: Found in ${nutrient.source}`;
-            nutrientList.appendChild(li);
+            li.textContent = `${nutrient.name}: ${nutrient.benefit}`;
+            list.appendChild(li);
         });
     }
 
-    function loadIngredients() {
-        const ingredientList = document.getElementById('ingredient-options-list');
+    function loadIngredientOptions() {
+        const list = document.getElementById('ingredient-options');
         ingredients.forEach(ingredient => {
             const li = document.createElement('li');
-            li.textContent = `${ingredient.name}: Provides ${ingredient.nutrients}`;
-            ingredientList.appendChild(li);
+            li.textContent = `${ingredient.name}: Provides ${ingredient.provides}`;
+            list.appendChild(li);
         });
     }
 
-    loadNutrients();
-    loadIngredients();
+    function loadIngredientsToSearch() {
+        const list = document.getElementById('ingredient-search');
+        ingredientsToSearch.forEach(ingredient => {
+            const li = document.createElement('li');
+            li.textContent = ingredient;
+            list.appendChild(li);
+        });
+    }
+
+    loadNutrientBenefits();
+    loadIngredientOptions();
+    loadIngredientsToSearch();
 });
 EOF

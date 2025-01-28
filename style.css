@@ -3,20 +3,15 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    line-height: 1.6;
     background-color: #f8f9fa;
+    line-height: 1.6;
 }
 
 header {
     text-align: center;
     background: #007BFF;
     color: white;
-    padding: 20px 0;
-}
-
-h1, h2 {
-    margin: 10px 0;
-    color: #333;
+    padding: 20px;
 }
 
 main {
@@ -30,14 +25,28 @@ main {
 
 section {
     margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+#circadian-clock {
+    background-color: #f7e5d6; /* Brown for results */
+}
+
+#add-ingredients {
+    background-color: #d6f5d6; /* Green for selection */
+}
+
+#details {
+    background-color: #e5d6f5; /* Purple for lists */
 }
 
 button {
     background: #28a745;
     color: white;
-    border: none;
     padding: 10px;
     border-radius: 4px;
+    border: none;
     cursor: pointer;
 }
 

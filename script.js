@@ -9,45 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const ingredients = [
-        { name: "Spinach", provides: "Vitamin A, Magnesium, and Iron" },
-        { name: "Carrots", provides: "Vitamin A" },
-        { name: "Sweet Potatoes", provides: "Vitamin A, Vitamin C, and Potassium" },
-        { name: "Milk", provides: "Calcium and Vitamin D" },
-        { name: "Salmon", provides: "Vitamin D, Omega-3s, and Vitamin B12" },
-        { name: "Eggs", provides: "Vitamin D and B12" }
+        "Spinach", "Carrots", "Sweet Potatoes", "Milk", "Yogurt", "Cheese", "Tofu",
+        "Oregano", "Basil", "Salmon", "Sardines", "Tuna", "Cod", "Eggs",
+        "Brussels Sprouts", "Strawberries", "Papaya", "Citrus Fruits", "Broccoli",
+        "Sunflower Seeds", "Sesame Seeds", "Lentils", "Green Peas", "Mushrooms",
+        "Onions", "Bananas", "Tomatoes", "Red Meat", "Shrimp", "Seaweed",
+        "Pumpkin Seeds", "Beans", "Cashews", "Almonds", "Brown Rice"
     ];
 
-    const ingredientsToSearch = ["Brussels Sprouts", "Seaweed", "Sunflower Seeds", "Shiitake Mushrooms", "Cashews", "Yogurt", "Tofu", "Papaya"];
-
-    function loadNutrientBenefits() {
-        const list = document.getElementById('nutrient-benefits');
-        nutrients.forEach(nutrient => {
+    function loadList(listId, items) {
+        const list = document.getElementById(listId);
+        items.forEach(item => {
             const li = document.createElement('li');
-            li.textContent = `${nutrient.name}: ${nutrient.benefit}`;
+            li.textContent = item.name || item;
             list.appendChild(li);
         });
     }
 
-    function loadIngredientOptions() {
-        const list = document.getElementById('ingredient-options');
-        ingredients.forEach(ingredient => {
-            const li = document.createElement('li');
-            li.textContent = `${ingredient.name}: Provides ${ingredient.provides}`;
-            list.appendChild(li);
-        });
-    }
-
-    function loadIngredientsToSearch() {
-        const list = document.getElementById('ingredient-search');
-        ingredientsToSearch.forEach(ingredient => {
-            const li = document.createElement('li');
-            li.textContent = ingredient;
-            list.appendChild(li);
-        });
-    }
-
-    loadNutrientBenefits();
-    loadIngredientOptions();
-    loadIngredientsToSearch();
+    loadList('nutrient-list', nutrients);
+    loadList('ingredient-options', ingredients);
 });
 EOF

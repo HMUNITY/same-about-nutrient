@@ -10,7 +10,7 @@ cat > index.html << 'EOF'
 <body>
     <header>
         <h1>Circadian Nutrient Tracker</h1>
-        <p>Optimize your meals based on your daily rhythm.</p>
+        <p>Optimize your meals based on your daily rhythm and nutrient needs.</p>
     </header>
 
     <div id="app-container">
@@ -56,15 +56,15 @@ cat > index.html << 'EOF'
     <section id="details-section">
         <h2>Details</h2>
         <div class="details-list">
-            <h3>Ingredients List</h3>
-            <ul id="detailed-ingredients">
-                <!-- Dynamically filled -->
+            <h3>Nutrients List</h3>
+            <ul id="nutrient-list">
+                <!-- Filled dynamically -->
             </ul>
         </div>
         <div class="details-list">
-            <h3>Nutrients List</h3>
-            <ul id="detailed-nutrients">
-                <!-- Dynamically filled -->
+            <h3>Ingredients List</h3>
+            <ul id="ingredient-options-list">
+                <!-- Filled dynamically -->
             </ul>
         </div>
     </section>
@@ -77,4 +77,3 @@ cat > index.html << 'EOF'
 </body>
 </html>
 EOF
-

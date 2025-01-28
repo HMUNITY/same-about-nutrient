@@ -72,3 +72,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const ingredientList = document.getElementById
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const state = {
+        ingredients: JSON.parse(localStorage.getItem('ingredients')) || []
+    };
+
+    const ingredientList = document.getElementById('ingredient-list');
+
+    // Function to display ingredients
+    function displayIngredients() {
+        ingredientList.innerHTML = '';
+        state.ingredients.forEach(({ name, amount }, index) => {
+            const li = document.createElement('li');
+            li.textContent = `${name} - ${amount}g`;
+            li.dataset.index = index;
+            ingredientList.appendChild(li);
+        });
+    }
+
+    // Add Ingredient
+    document.getElementById('add-ingredient').addEventListener('click', () => {
+        const name = document.getElementById('ingredient-name').value;
+        const amount = parseInt(document.getElementById('ingredient-amount').value);
+
+        if (name && amount > 0) {
+            state.ingredients.push({ name, amount });
+            displayIngredients();
+            document.getElementById('ingredient-name').value = '';
+            document.getElementById('ingredient-amount').value = '';
+        } else {
+            alert('Please enter valid ingredient details.');
+        }
+    });
+
+    // Save Ingredients
+    document.getElementById('save-ingredients').addEventListener('click', () => {
+        localStorage.setItem('ingredients', JSON.stringify(state.ingredients));
+        alert('Ingredients saved!');
+    });
+
+    // Erase Ingredients
+    document.getElementById('erase-ingredients').addEventListener('click', () => {
+        state.ingredients = [];
+        localStorage.removeItem('ingredients');
+        displayIngredients();
+        alert('Ingredients erased!');
+    });
+
+    // Initial Load
+    displayIngredients();
+});
+

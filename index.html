@@ -10,64 +10,49 @@ cat > index.html << 'EOF'
 <body>
     <header>
         <h1>Circadian Nutrient Tracker</h1>
-        <p>Optimize your meals based on your circadian rhythm and nutrient needs.</p>
+        <p>Track your daily rhythm and nutrients in sync with Traditional Chinese Medicine.</p>
     </header>
 
-    <div id="app-container">
-        <!-- Left Sidebar: Ingredients -->
-        <aside id="left-sidebar">
-            <h2>Ingredients</h2>
-            <form id="ingredient-form">
-                <input type="text" id="ingredient-name" placeholder="Ingredient Name" required>
-                <input type="number" id="ingredient-amount" placeholder="Amount (g)" required>
-                <button type="button" id="add-ingredient">Add</button>
-                <button type="button" id="save-ingredients">Save</button>
-                <button type="button" id="erase-ingredients">Erase</button>
-            </form>
-            <ul id="ingredient-list"></ul>
-        </aside>
-
-        <!-- Main Section: Circadian Clock -->
-        <section id="main-section">
+    <main>
+        <!-- Circadian Clock -->
+        <section id="circadian-clock">
             <h2>Circadian Clock</h2>
-            <div id="circadian-clock">
-                <div id="clock">
-                    <p id="current-time"></p>
-                    <p id="organ-function"></p>
-                </div>
-                <div id="time-based-suggestions">
-                    <h3>Time-Based Suggestions</h3>
-                    <p id="meal-suggestions">Loading suggestions...</p>
-                </div>
-            </div>
+            <p id="current-time">Current Time: --:--</p>
+            <p id="organ-function">Organ Function: --</p>
         </section>
 
-        <!-- Right Sidebar: Nutrient Summary -->
-        <aside id="right-sidebar">
-            <h2>Micronutrient Summary</h2>
+        <!-- Add Ingredients -->
+        <section id="add-ingredients">
+            <h2>Add Ingredients</h2>
+            <input type="text" id="ingredient-name" placeholder="Ingredient Name">
+            <input type="number" id="ingredient-amount" placeholder="Amount (g)">
+            <button id="add-ingredient">Add Ingredient</button>
+            <ul id="ingredient-list"></ul>
+        </section>
+
+        <!-- Results -->
+        <section id="results">
+            <h2>Results</h2>
+            <h3>Micronutrient Summary</h3>
             <ul id="micronutrient-summary"></ul>
-        </aside>
-    </div>
+        </section>
 
-    <!-- Details Section -->
-    <section id="details-section">
-        <h2>Details</h2>
-
-        <!-- Nutrients List -->
-        <div class="details-list" id="nutrient-details">
-            <h3>Nutrients</h3>
-            <ul id="nutrient-list"></ul>
-        </div>
-
-        <!-- Ingredients List -->
-        <div class="details-list" id="ingredient-details">
-            <h3>Ingredients</h3>
-            <ul id="ingredient-options"></ul>
-        </div>
-    </section>
+        <!-- Nutrients and Ingredients -->
+        <section id="details">
+            <h2>Explore Nutrients and Ingredients</h2>
+            <div id="nutrients">
+                <h3>Nutrients</h3>
+                <ul id="nutrient-list"></ul>
+            </div>
+            <div id="ingredients">
+                <h3>Ingredients</h3>
+                <ul id="ingredient-options"></ul>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <p>Contact us for guidance: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
+        <p>Questions? Contact us: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
     </footer>
 
     <script src="script.js"></script>

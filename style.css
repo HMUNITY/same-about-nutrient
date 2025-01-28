@@ -15,7 +15,7 @@ header {
 }
 
 main {
-    max-width: 800px;
+    max-width: 900px;
     margin: 20px auto;
     padding: 20px;
     background: white;
@@ -30,15 +30,15 @@ section {
 }
 
 #circadian-clock {
-    background-color: #f7e5d6; /* Brown for results */
+    background-color: #f7e5d6; /* Brown */
 }
 
 #add-ingredients {
-    background-color: #d6f5d6; /* Green for selection */
+    background-color: #d6f5d6; /* Green */
 }
 
 #details {
-    background-color: #e5d6f5; /* Purple for lists */
+    background-color: #e5d6f5; /* Purple */
 }
 
 button {

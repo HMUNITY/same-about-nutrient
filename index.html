@@ -10,56 +10,42 @@ cat > index.html << 'EOF'
 <body>
     <header>
         <h1>Cirkadinės Mitybos Sekimo Priemonė</h1>
-        <p>Sekite savo maistines medžiagas ir paros ritmą.</p>
     </header>
 
-    <main>
-        <!-- Saulė su pėdsakais -->
-        <div id="sun-container">
-            <div id="sun"></div>
-            <div id="footprints">
-                <p>Laikas: <span id="current-time"></span></p>
-            </div>
-        </div>
+    <!-- Saulė -->
+    <div id="sun-container">
+        <div id="sun"></div>
+        <p id="current-time"></p>
+    </div>
 
-        <!-- Pridėti ingredientus -->
-        <section id="add-ingredients">
-            <h2>Pridėti ingredientus</h2>
-            <input type="text" id="ingredient-name" placeholder="Ingredientas">
+    <!-- Pagrindinės trys lentelės -->
+    <main>
+        <section id="save-section">
+            <h2>🔹 Išsaugoti pasirinkimus</h2>
+            <input type="text" id="ingredient-name" placeholder="Įveskite ingredientą">
             <input type="number" id="ingredient-amount" placeholder="Kiekis (g)">
             <button id="add-ingredient">Pridėti</button>
-            <button id="save-ingredients">Išsaugoti</button>
-            <button id="erase-ingredients">Ištrinti</button>
-            <ul id="ingredient-list"></ul>
+            <button id="save-data">Išsaugoti</button>
+            <button id="erase-data">Ištrinti</button>
+            <ul id="saved-list"></ul>
         </section>
 
-        <!-- Rezultatai -->
-        <section id="results">
-            <h2>Rezultatai</h2>
-            <h3>Mikroelementų santrauka</h3>
+        <section id="results-section">
+            <h2>🔹 Skaičiuoti rezultatai</h2>
             <ul id="micronutrient-summary"></ul>
         </section>
 
-        <!-- Maistinės medžiagos ir ingredientai -->
-        <section id="details">
-            <h2>Maistinės medžiagos ir ingredientai</h2>
-            <div id="nutrients">
-                <h3>Maistinės medžiagos</h3>
-                <ul id="nutrient-list"></ul>
-            </div>
-            <div id="ingredients">
-                <h3>Ingredientai</h3>
-                <ul id="ingredient-options"></ul>
-            </div>
+        <section id="selection-section">
+            <h2>🔹 Galimi ingredientai</h2>
+            <ul id="ingredient-options"></ul>
         </section>
     </main>
 
     <footer>
-        <p>Klausimai? Susisiekite: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
+        <p>Susisiekite: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
     </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
 EOF
- 

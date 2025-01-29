@@ -14,31 +14,23 @@ header {
     padding: 20px;
 }
 
-main {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+#sun-container {
+    text-align: center;
+    margin: 20px;
 }
 
-section {
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 8px;
+#sun {
+    width: 80px;
+    height: 80px;
+    background: yellow;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 10px;
 }
 
-#circadian-clock {
-    background-color: #f7e5d6; /* Brown */
-}
-
-#add-ingredients {
-    background-color: #d6f5d6; /* Green */
-}
-
-#details {
-    background-color: #e5d6f5; /* Purple */
+#footprints {
+    font-size: 18px;
+    font-weight: bold;
 }
 
 button {

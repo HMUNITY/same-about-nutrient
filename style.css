@@ -28,6 +28,13 @@ header {
     margin-bottom: 10px;
 }
 
+#organ-function-section {
+    background-color: #e6f7ff;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px;
+}
+
 main {
     display: flex;
     justify-content: space-around;

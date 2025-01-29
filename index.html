@@ -1,58 +1,77 @@
 cat > index.html << 'EOF'
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circadian Nutrient Tracker</title>
+    <title>Cirkadinės Mitybos Sekimo Priemonė</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Circadian Nutrient Tracker</h1>
-        <p>Track your nutrient intake throughout the day with real-time circadian guidance.</p>
+        <h1>Cirkadinės Mitybos Sekimo Priemonė</h1>
+        <p>Sekite savo maistines medžiagas per paros ritmą.</p>
     </header>
 
     <main>
-        <!-- Circadian Clock -->
-        <section id="circadian-clock">
-            <h2>Circadian Clock</h2>
-            <p id="current-time">Current Time: --:--</p>
-            <p id="organ-function">Organ Function: --</p>
-        </section>
+        <!-- Saulė su pėdsakais -->
+        <div id="sun-container">
+            <div id="sun"></div>
+            <div id="footprints">
+                <p>CEST Laikas: <span id="current-time"></span></p>
+            </div>
+        </div>
 
-        <!-- Add Ingredients -->
+        <!-- Pridėti ingredientus -->
         <section id="add-ingredients">
-            <h2>Add Ingredients</h2>
-            <input type="text" id="ingredient-name" placeholder="Ingredient Name">
-            <input type="number" id="ingredient-amount" placeholder="Amount (g)">
-            <button id="add-ingredient">Add Ingredient</button>
+            <h2>Pridėti ingredientus</h2>
+            <input type="text" id="ingredient-name" placeholder="Ingredientas">
+            <input type="number" id="ingredient-amount" placeholder="Kiekis (g)">
+            <button id="add-ingredient">Pridėti</button>
+            <button id="save-ingredients">Išsaugoti</button>
+            <button id="erase-ingredients">Ištrinti</button>
             <ul id="ingredient-list"></ul>
         </section>
 
-        <!-- Results -->
+        <!-- Rezultatai -->
         <section id="results">
-            <h2>Results</h2>
-            <h3>Micronutrient Summary</h3>
+            <h2>Rezultatai</h2>
+            <h3>Mikroelementų santrauka</h3>
             <ul id="micronutrient-summary"></ul>
         </section>
 
-        <!-- Nutrients and Ingredients -->
+        <!-- Komentarai ir pastabos -->
+        <section id="comments">
+            <h2>Pastabos ir komentarai</h2>
+            <textarea id="comment-input" placeholder="Palikite savo pastabą..."></textarea>
+            <button id="add-comment">Pridėti komentarą</button>
+            <ul id="comment-list"></ul>
+        </section>
+
+        <!-- Žodžių dažnio skaičiuoklė -->
+        <section id="word-counter">
+            <h2>Žodžių dažnio skaičiuoklė</h2>
+            <textarea id="word-input" placeholder="Įveskite tekstą analizei..."></textarea>
+            <button id="count-words">Skaičiuoti žodžius</button>
+            <ul id="word-frequency"></ul>
+        </section>
+
+        <!-- Maistinės medžiagos ir ingredientai -->
         <section id="details">
-            <h2>Explore Nutrients and Ingredients</h2>
+            <h2>Maistinės medžiagos ir ingredientai</h2>
             <div id="nutrients">
-                <h3>Nutrients</h3>
+                <h3>Maistinės medžiagos</h3>
                 <ul id="nutrient-list"></ul>
             </div>
             <div id="ingredients">
-                <h3>Ingredients</h3>
+                <h3>Ingredientai</h3>
                 <ul id="ingredient-options"></ul>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>Need help? Contact us: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
+        <p>Klausimai? Susisiekite: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
     </footer>
 
     <script src="script.js"></script>

@@ -10,7 +10,7 @@ cat > index.html << 'EOF'
 <body>
     <header>
         <h1>Cirkadinės Mitybos Sekimo Priemonė</h1>
-        <p>Sekite savo maistines medžiagas per paros ritmą.</p>
+        <p>Sekite savo maistines medžiagas ir paros ritmą.</p>
     </header>
 
     <main>
@@ -18,7 +18,7 @@ cat > index.html << 'EOF'
         <div id="sun-container">
             <div id="sun"></div>
             <div id="footprints">
-                <p>CEST Laikas: <span id="current-time"></span></p>
+                <p>Laikas: <span id="current-time"></span></p>
             </div>
         </div>
 
@@ -46,14 +46,6 @@ cat > index.html << 'EOF'
             <textarea id="comment-input" placeholder="Palikite savo pastabą..."></textarea>
             <button id="add-comment">Pridėti komentarą</button>
             <ul id="comment-list"></ul>
-        </section>
-
-        <!-- Žodžių dažnio skaičiuoklė -->
-        <section id="word-counter">
-            <h2>Žodžių dažnio skaičiuoklė</h2>
-            <textarea id="word-input" placeholder="Įveskite tekstą analizei..."></textarea>
-            <button id="count-words">Skaičiuoti žodžius</button>
-            <ul id="word-frequency"></ul>
         </section>
 
         <!-- Maistinės medžiagos ir ingredientai -->

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateClock() {
         const now = new Date();
         const hours = now.getHours();
-        document.getElementById('current-time').textContent = `${hours}:00 CEST`;
+        document.getElementById('current-time').textContent = `${hours}:00`;
     }
 
     function addIngredient() {
@@ -41,3 +41,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateClock, 3600000);
 });
 EOF
+

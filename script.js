@@ -1,11 +1,26 @@
 cat > script.js << 'EOF'
 document.addEventListener('DOMContentLoaded', () => {
-    const state = { ingredients: [], comments: [] };
+    const state = { ingredients: [] };
+
+    const nutrients = {
+        "Vitaminas A": ["Morkos", "Salotos", "Špinatai"],
+        "Vitaminas C": ["Citrinos", "Braškės", "Papaja"],
+        "Kalcis": ["Tofu", "Sūris", "Jogurtas"],
+        "Geležis": ["Lęšiai", "Jautiena", "Špinatai"],
+        "Magnis": ["Anakardžiai", "Sojų pupelės", "Rudi ryžiai"]
+    };
+
+    const ingredients = [
+        "Asparagai", "Lęšiai", "Sezamo sėklos", "Šiitake grybai", "Saldžios bulvės",
+        "Avokadai", "Vistiena", "Svogūnai", "Bananai", "Špinatai", "Kopūstai",
+        "Kiaušiniai", "Briuselio kopūstai", "Papaja", "Tofu", "Oregano", "Bazilikas",
+        "Rugiai", "Alyvuogės", "Jūros gėrybės", "Krevetės", "Žuvis", "Sojų pupelės",
+        "Anakardžiai", "Rudi ryžiai", "Migdolai", "Moliūgų sėklos", "Brokoliai"
+    ];
 
     function updateClock() {
         const now = new Date();
-        const hours = now.getHours();
-        document.getElementById('current-time').textContent = `${hours}:00`;
+        document.getElementById('current-time').textContent = `${now.getHours()}:00`;
     }
 
     function addIngredient() {
@@ -19,26 +34,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function saveIngredients() { alert('Ingredientai išsaugoti!'); }
-    function eraseIngredients() { state.ingredients = []; document.getElementById('ingredient-list').innerHTML = ''; }
-
-    function addComment() {
-        const comment = document.getElementById('comment-input').value;
-        if (comment) {
-            state.comments.push(comment);
-            const li = document.createElement('li');
-            li.textContent = comment;
-            document.getElementById('comment-list').appendChild(li);
-        }
-    }
-
     document.getElementById('add-ingredient').addEventListener('click', addIngredient);
-    document.getElementById('save-ingredients').addEventListener('click', saveIngredients);
-    document.getElementById('erase-ingredients').addEventListener('click', eraseIngredients);
-    document.getElementById('add-comment').addEventListener('click', addComment);
 
     updateClock();
     setInterval(updateClock, 3600000);
+
+    const nutrientList = document.getElementById('nutrient-list');
+    Object.keys(nutrients).forEach(nutrient => {
+        const li = document.createElement('li');
+        li.textContent = `${nutrient}: ${nutrients[nutrient].join(", ")}`;
+        nutrientList.appendChild(li);
+    });
+
+    const ingredientList = document.getElementById('ingredient-options');
+    ingredients.forEach(ingredient => {
+        const li = document.createElement('li');
+        li.textContent = ingredient;
+        ingredientList.appendChild(li);
+    });
 });
 EOF
-

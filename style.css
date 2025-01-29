@@ -5,18 +5,18 @@ body {
     padding: 0;
     background-color: #f8f9fa;
     line-height: 1.6;
+    text-align: center;
 }
 
 header {
-    text-align: center;
     background: #007BFF;
     color: white;
     padding: 20px;
 }
 
 #sun-container {
+    margin: 20px auto;
     text-align: center;
-    margin: 20px;
 }
 
 #sun {
@@ -28,18 +28,39 @@ header {
     margin-bottom: 10px;
 }
 
-#footprints {
-    font-size: 18px;
-    font-weight: bold;
+main {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+section {
+    width: 30%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#save-section {
+    background-color: #d4f8d4; /* Žalia */
+}
+
+#results-section {
+    background-color: #d4e6f8; /* Mėlyna */
+}
+
+#selection-section {
+    background-color: #f8e4d4; /* Oranžinė */
 }
 
 button {
     background: #28a745;
     color: white;
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 button:hover {
@@ -52,11 +73,10 @@ ul {
 }
 
 li {
-    background: #f8f9fa;
+    background: white;
     margin: 5px 0;
     padding: 10px;
-    border: 1px solid #dee2e6;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 EOF
- 

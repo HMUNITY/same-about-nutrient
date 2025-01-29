@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const state = { ingredients: [] };
 
     const nutrients = {
-        "Vitaminas A": ["Morkos", "Salotos", "Špinatai"],
+        "Vitaminas A": ["Morkos", "Špinatai", "Salotos"],
         "Vitaminas C": ["Citrinos", "Braškės", "Papaja"],
         "Kalcis": ["Tofu", "Sūris", "Jogurtas"],
         "Geležis": ["Lęšiai", "Jautiena", "Špinatai"],
@@ -30,21 +30,34 @@ document.addEventListener('DOMContentLoaded', () => {
             state.ingredients.push({ name, amount });
             const li = document.createElement('li');
             li.textContent = `${name} - ${amount}g`;
-            document.getElementById('ingredient-list').appendChild(li);
+            document.getElementById('saved-list').appendChild(li);
+            calculateNutrients();
         }
+    }
+
+    function calculateNutrients() {
+        const summary = {};
+        state.ingredients.forEach(item => {
+            Object.keys(nutrients).forEach(nutrient => {
+                if (nutrients[nutrient].includes(item.name)) {
+                    summary[nutrient] = (summary[nutrient] || 0) + parseInt(item.amount);
+                }
+            });
+        });
+
+        const resultList = document.getElementById('micronutrient-summary');
+        resultList.innerHTML = "";
+        Object.keys(summary).forEach(nutrient => {
+            const li = document.createElement('li');
+            li.textContent = `${nutrient}: ${summary[nutrient]}mg`;
+            resultList.appendChild(li);
+        });
     }
 
     document.getElementById('add-ingredient').addEventListener('click', addIngredient);
 
     updateClock();
     setInterval(updateClock, 3600000);
-
-    const nutrientList = document.getElementById('nutrient-list');
-    Object.keys(nutrients).forEach(nutrient => {
-        const li = document.createElement('li');
-        li.textContent = `${nutrient}: ${nutrients[nutrient].join(", ")}`;
-        nutrientList.appendChild(li);
-    });
 
     const ingredientList = document.getElementById('ingredient-options');
     ingredients.forEach(ingredient => {
@@ -54,4 +67,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 EOF
- 

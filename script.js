@@ -1,4 +1,3 @@
-// Database of nutrients and foods
 const foodData = {
     grains: {
         "Rye": { nutrients: { fiber: 15, protein: 10 }, unit: "g" },
@@ -17,67 +16,75 @@ const foodData = {
     }
 };
 
-// Adding vitamins and minerals data to the script
-const vitaminsAndMinerals = {
-    "Vitamin A": {
-        description: [
-            "Requires proteins and fats for absorption",
-            "Requires zinc for absorption",
-            "May interfere with vitamin K absorption",
-            "Controls vitamin D metabolism"
-        ],
-        foods: ["Eggs", "Cheese", "Rye", "Tomatoes"]
-    },
-    "Vitamin D": {
-        description: [
-            "Essential for calcium absorption and bone health"
-        ],
-        foods: ["Eggs", "Cheese", "Rye", "Tomatoes"]
-    },
-    "Vitamin K": {
-        description: [
-            "Important for blood clotting and bone health"
-        ],
-        foods: ["Vegetables", "Rye", "Cheese", "Tomatoes"]
-    },
-    "Iron": {
-        description: [
-            "Vital for oxygen transport in the blood"
-        ],
-        foods: ["Swiss Chard", "Kidney Beans", "Pumpkin Seeds", "Lentils"]
-    },
-    "Manganese": {
-        description: [
-            "Important for bone formation and metabolic processes"
-        ],
-        foods: ["Flax Seeds", "Chickpeas", "Pineapple", "Collard Greens", "Cinnamon", "Black Pepper"]
-    },
-    "Phosphorus": {
-        description: [
-            "Necessary for bone health and energy production"
-        ],
-        foods: ["Lentils", "Chicken", "Turkey", "Beef", "Yogurt", "Pumpkin Seeds"]
-    },
-    "Chromium": {
-        description: [
-            "Helps regulate blood sugar levels"
-        ],
-        foods: ["Broccoli", "Barley"]
-    },
-    "Chloride": {
-        description: [
-            "Maintains proper fluid balance and blood pressure"
-        ],
-        foods: ["Rye", "Tomatoes", "Lettuce", "Celery", "Cheese", "Olives"]
-    },
-    "Potassium": {
-        description: [
-            "Important for heart function and muscle contraction"
-        ],
-        foods: ["Tomatoes", "Rye", "Lettuce", "Celery", "Olives", "Papaya", "Basil", "Flax Seeds", "Oregano", "Chickpeas", "Cashews", "Sunflower Seeds", "Brussels Sprouts", "Berries", "Shiitake Mushrooms", "Almonds", "Avocados", "Collard Greens", "Beans", "Sweet Potatoes", "Soybeans", "Yogurt", "Asparagus", "Bananas", "Carrots", "Onions", "Spinach", "Black Pepper", "Crimini Mushrooms", "Cabbage"]
+// Handle Category Change
+function updateFoodItems() {
+    const category = document.getElementById('foodCategory').value;
+    const foodItemSelect = document.getElementById('foodItem');
+    foodItemSelect.innerHTML = '<option value="">Select Food</option>';
+
+    if (category && foodData[category]) {
+        const items = Object.keys(foodData[category]);
+        items.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item;
+            option.textContent = item;
+            foodItemSelect.appendChild(option);
+        });
     }
-};
+}
 
-// Implement functionality for adding, saving, and deleting food items
-// Additional code logic for handling interactions and displaying nutrient info based on the new entries
+// Handle Add Food Item
+function addFoodItem() {
+    const foodCategory = document.getElementById('foodCategory').value;
+    const foodItem = document.getElementById('foodItem').value;
+    const quantity = parseFloat(document.getElementById('quantity').value);
 
+    if (!foodCategory || !foodItem || isNaN(quantity) || quantity <= 0) {
+        alert('Please select a valid food item and quantity');
+        return;
+    }
+
+    const food = foodData[foodCategory][foodItem];
+    const dailyEntries = document.getElementById('dailyEntries');
+
+    const entry = document.createElement('div');
+    entry.textContent = `${foodItem} x${quantity} - Nutrients: ${JSON.stringify(food.nutrients)}`;
+    dailyEntries.appendChild(entry);
+
+    updateDailyTotals(foodItem, quantity);
+}
+
+// Update Daily Totals
+function updateDailyTotals(foodItem, quantity) {
+    const dailyTotals = document.getElementById('dailyTotals');
+    const food = foodData[foodCategory][foodItem];
+    let totalNutrients = {};
+
+    if (dailyTotals.textContent === '') {
+        totalNutrients = food.nutrients;
+    } else {
+        totalNutrients = JSON.parse(dailyTotals.textContent);
+    }
+
+    Object.keys(food.nutrients).forEach(nutrient => {
+        totalNutrients[nutrient] = (totalNutrients[nutrient] || 0) + (food.nutrients[nutrient] * quantity);
+    });
+
+    dailyTotals.textContent = JSON.stringify(totalNutrients);
+}
+
+// Handle Notes Input
+function addNote() {
+    const noteInput = document.getElementById('noteInput');
+    const savedNotes = document.getElementById('savedNotes');
+    const noteText = noteInput.value;
+
+    if (noteText) {
+        const noteDiv = document.createElement('div');
+        noteDiv.textContent = noteText;
+        savedNotes.appendChild(noteDiv);
+        noteInput.value = '';
+    } else {
+        alert('Please enter a note');
+    }
+}

@@ -1,61 +1,94 @@
 <!DOCTYPE html>
-<html lang="lt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Nutrition Guide | Kasdieninis Mitybos Gidas</title>
+    <title>Nutrition & TCM Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav id="tableOfContents">
-        <h2>Table of Contents | Turinys</h2>
-        <ul>
-            <li><a href="#daily-values">Daily Values | Dienos Vertės</a></li>
-            <li><a href="#food-sources">Food Sources | Maisto Šaltiniai</a></li>
-            <li><a href="#measurements">Measurements | Matavimai</a></li>
-            <li><a href="#interactions">Interactions | Sąveikos</a></li>
-            <li><a href="#age-specific">Age Requirements | Amžiaus Reikalavimai</a></li>
-        </ul>
+    <nav class="main-nav">
+        <h1>Nutrition & TCM Tracker</h1>
     </nav>
 
     <main>
-        <section id="daily-values">
-            <h2>Daily Values | Dienos Vertės</h2>
-            <div class="vitamin-grid">
-                <!-- Dynamic content loaded via JS -->
+        <!-- Food Lists Section -->
+        <section id="foodLists" class="content-section">
+            <h2>Food Database</h2>
+            <div class="tab-container">
+                <button class="tab-btn active" data-tab="grains">Grains & Legumes</button>
+                <button class="tab-btn" data-tab="vegetables">Vegetables</button>
+                <button class="tab-btn" data-tab="proteins">Proteins</button>
+                <button class="tab-btn" data-tab="vitamins">Vitamins & Minerals</button>
+            </div>
+            <div id="foodContent" class="tab-content"></div>
+        </section>
+
+        <!-- Tracking Section -->
+        <section id="trackingSection" class="content-section">
+            <h2>Track Your Nutrition</h2>
+            
+            <!-- Selection Form -->
+            <div class="tracking-container">
+                <div class="selection-form">
+                    <h3>1. Select Foods</h3>
+                    <form id="foodSelectionForm">
+                        <select id="foodCategory" required>
+                            <option value="">Select Category</option>
+                        </select>
+                        <select id="foodItem" required>
+                            <option value="">Select Food</option>
+                        </select>
+                        <input type="number" id="quantity" placeholder="Quantity" required>
+                        <select id="unit" required>
+                            <option value="">Select Unit</option>
+                        </select>
+                        <button type="submit">Add to Calculation</button>
+                    </form>
+                </div>
+
+                <!-- Calculation Display -->
+                <div class="calculation-display">
+                    <h3>2. Nutrition Calculation</h3>
+                    <div id="calculationResults"></div>
+                </div>
+
+                <!-- Saved Data -->
+                <div class="saved-data">
+                    <h3>3. Saved Entries</h3>
+                    <div id="savedEntries">
+                        <!-- Entries will be populated here -->
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="food-sources">
-            <h2>Food Sources | Maisto Šaltiniai</h2>
-            <div class="measurement-tabs">
-                <button class="tab-btn active" data-tab="volume">By Volume | Pagal Tūrį</button>
-                <button class="tab-btn" data-tab="weight">By Weight | Pagal Svorį</button>
-                <button class="tab-btn" data-tab="count">By Count | Pagal Vienetus</button>
-            </div>
-            <div class="measurement-content">
-                <!-- Dynamic content loaded via JS -->
-            </div>
-        </section>
-
-        <section id="measurements">
-            <h2>Measurement Legend | Matavimų Legenda</h2>
-            <div class="conversion-table">
-                <!-- Dynamic content loaded via JS -->
+        <!-- TCM Clock Section -->
+        <section id="tcmClock" class="content-section">
+            <h2>TCM Circadian Rhythm</h2>
+            <div class="tcm-container">
+                <div class="clock-visual"></div>
+                <div class="nutrients-list">
+                    <h3>Recommended Nutrients by Time</h3>
+                    <div id="tcmNutrients"></div>
+                </div>
             </div>
         </section>
 
-        <section id="interactions">
-            <h2>Vitamin & Mineral Interactions | Vitaminų ir Mineralų Sąveikos</h2>
-            <div class="interaction-grid">
-                <!-- Dynamic content loaded via JS -->
-            </div>
-        </section>
-
-        <section id="age-specific">
-            <h2>Age-Specific Requirements | Amžiaus Specifiniai Reikalavimai</h2>
-            <div class="age-grid">
-                <!-- Dynamic content loaded via JS -->
+        <!-- Contact Section -->
+        <section id="contact" class="content-section">
+            <h2>Contact Food Footprint Team</h2>
+            <div class="contact-container">
+                <form id="contactForm" class="contact-form">
+                    <input type="email" value="8pbestourhqchi@gmail.com" readonly>
+                    <textarea placeholder="Your message"></textarea>
+                    <div class="upload-container">
+                        <label for="photoUpload" class="upload-btn">Upload Photo</label>
+                        <input type="file" id="photoUpload" accept="image/*">
+                        <span id="fileName"></span>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
             </div>
         </section>
     </main>

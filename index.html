@@ -1,58 +1,65 @@
-cat > index.html << 'EOF'
 <!DOCTYPE html>
 <html lang="lt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cirkadinės Mitybos Sekimo Priemonė</title>
+    <title>Daily Nutrition Guide | Kasdieninis Mitybos Gidas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Cirkadinės Mitybos Sekimo Priemonė</h1>
-    </header>
+    <nav id="tableOfContents">
+        <h2>Table of Contents | Turinys</h2>
+        <ul>
+            <li><a href="#daily-values">Daily Values | Dienos Vertės</a></li>
+            <li><a href="#food-sources">Food Sources | Maisto Šaltiniai</a></li>
+            <li><a href="#measurements">Measurements | Matavimai</a></li>
+            <li><a href="#interactions">Interactions | Sąveikos</a></li>
+            <li><a href="#age-specific">Age Requirements | Amžiaus Reikalavimai</a></li>
+        </ul>
+    </nav>
 
-    <!-- Saulė -->
-    <div id="sun-container">
-        <div id="sun"></div>
-        <p id="current-time"></p>
-    </div>
-
-    <!-- Organų funkcija pagal laiką -->
-    <section id="organ-function-section">
-        <h2>🔹 Organų funkcija pagal laiką</h2>
-        <p id="organ-function">Spauskite mygtuką, kad sužinotumėte aktyvią organų funkciją.</p>
-        <button id="show-organ-function">Rodyti funkciją</button>
-    </section>
-
-    <!-- Pagrindinės trys lentelės -->
     <main>
-        <section id="save-section">
-            <h2>🔹 Išsaugoti pasirinkimus</h2>
-            <input type="text" id="ingredient-name" placeholder="Įveskite ingredientą">
-            <input type="number" id="ingredient-amount" placeholder="Kiekis (g)">
-            <button id="add-ingredient">Pridėti</button>
-            <button id="save-data">Išsaugoti</button>
-            <button id="erase-data">Ištrinti</button>
-            <ul id="saved-list"></ul>
+        <section id="daily-values">
+            <h2>Daily Values | Dienos Vertės</h2>
+            <div class="vitamin-grid">
+                <!-- Dynamic content loaded via JS -->
+            </div>
         </section>
 
-        <section id="results-section">
-            <h2>🔹 Skaičiuoti rezultatai</h2>
-            <ul id="micronutrient-summary"></ul>
+        <section id="food-sources">
+            <h2>Food Sources | Maisto Šaltiniai</h2>
+            <div class="measurement-tabs">
+                <button class="tab-btn active" data-tab="volume">By Volume | Pagal Tūrį</button>
+                <button class="tab-btn" data-tab="weight">By Weight | Pagal Svorį</button>
+                <button class="tab-btn" data-tab="count">By Count | Pagal Vienetus</button>
+            </div>
+            <div class="measurement-content">
+                <!-- Dynamic content loaded via JS -->
+            </div>
         </section>
 
-        <section id="selection-section">
-            <h2>🔹 Galimi ingredientai</h2>
-            <ul id="ingredient-options"></ul>
+        <section id="measurements">
+            <h2>Measurement Legend | Matavimų Legenda</h2>
+            <div class="conversion-table">
+                <!-- Dynamic content loaded via JS -->
+            </div>
+        </section>
+
+        <section id="interactions">
+            <h2>Vitamin & Mineral Interactions | Vitaminų ir Mineralų Sąveikos</h2>
+            <div class="interaction-grid">
+                <!-- Dynamic content loaded via JS -->
+            </div>
+        </section>
+
+        <section id="age-specific">
+            <h2>Age-Specific Requirements | Amžiaus Specifiniai Reikalavimai</h2>
+            <div class="age-grid">
+                <!-- Dynamic content loaded via JS -->
+            </div>
         </section>
     </main>
-
-    <footer>
-        <p>Susisiekite: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
-EOF

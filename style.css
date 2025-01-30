@@ -2,92 +2,149 @@
     --primary-color: #2c3e50;
     --secondary-color: #34495e;
     --accent-color: #3498db;
+    --success-color: #27ae60;
+    --warning-color: #f1c40f;
+    --error-color: #e74c3c;
     --text-color: #2c3e50;
     --light-bg: #ecf0f1;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    margin: 0;
-    padding: 0;
     color: var(--text-color);
+    background-color: var(--light-bg);
 }
 
-nav {
+.main-nav {
     background-color: var(--primary-color);
-    color: white;
-    padding: 1rem;
+    color: var(--white);
+    padding: 1rem 2rem;
     position: sticky;
     top: 0;
+    z-index: 100;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-}
-
-main {
-    max-width: 1200px;
-    margin: 0 auto;
+.content-section {
+    background: var(--white);
+    margin: 2rem;
     padding: 2rem;
-}
-
-section {
-    margin-bottom: 3rem;
-    padding: 2rem;
-    background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.vitamin-grid, .interaction-grid, .age-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
-}
-
-.measurement-tabs {
+/* Tab Styles */
+.tab-container {
     display: flex;
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .tab-btn {
     padding: 0.5rem 1rem;
     border: none;
     background-color: var(--light-bg);
+    border-radius: 4px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .tab-btn.active {
     background-color: var(--accent-color);
-    color: white;
+    color: var(--white);
 }
 
-.measurement-content {
+/* Tracking Section Styles */
+.tracking-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.selection-form form {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
 }
 
-.conversion-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.conversion-table th, .conversion-table td {
+select, input, textarea {
     padding: 0.5rem;
-    border: 1px solid var(--light-bg);
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    font-size: 1rem;
 }
 
+button {
+    padding: 0.5rem 1rem;
+    background-color: var(--accent-color);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}
+
+/* TCM Clock Styles */
+.tcm-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.clock-visual {
+    aspect-ratio: 1;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    position: relative;
+}
+
+/* Contact Section Styles */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.upload-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.upload-btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#photoUpload {
+    display: none;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .vitamin-grid, .interaction-grid, .age-grid {
+    .tracking-container,
+    .tcm-container {
         grid-template-columns: 1fr;
+    }
+
+    .content-section {
+        margin: 1rem;
+        padding: 1rem;
     }
 }

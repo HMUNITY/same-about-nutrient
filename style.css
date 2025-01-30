@@ -1,89 +1,93 @@
-cat > style.css << 'EOF'
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #3498db;
+    --text-color: #2c3e50;
+    --light-bg: #ecf0f1;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
-    line-height: 1.6;
-    text-align: center;
+    color: var(--text-color);
 }
 
-header {
-    background: #007BFF;
+nav {
+    background-color: var(--primary-color);
     color: white;
-    padding: 20px;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
 }
 
-#sun-container {
-    margin: 20px auto;
-    text-align: center;
-}
-
-#sun {
-    width: 80px;
-    height: 80px;
-    background: yellow;
-    border-radius: 50%;
-    display: inline-block;
-    margin-bottom: 10px;
-}
-
-#organ-function-section {
-    background-color: #e6f7ff;
-    padding: 15px;
-    border-radius: 10px;
-    margin: 20px;
-}
-
-main {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px;
-}
-
-section {
-    width: 30%;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#save-section {
-    background-color: #d4f8d4; /* Žalia */
-}
-
-#results-section {
-    background-color: #d4e6f8; /* Mėlyna */
-}
-
-#selection-section {
-    background-color: #f8e4d4; /* Oranžinė */
-}
-
-button {
-    background: #28a745;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background: #218838;
-}
-
-ul {
+nav ul {
     list-style: none;
     padding: 0;
 }
 
-li {
-    background: white;
-    margin: 5px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+nav a {
+    color: white;
+    text-decoration: none;
 }
-EOF
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+section {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.vitamin-grid, .interaction-grid, .age-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.measurement-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tab-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: var(--light-bg);
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.measurement-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.conversion-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.conversion-table th, .conversion-table td {
+    padding: 0.5rem;
+    border: 1px solid var(--light-bg);
+}
+
+@media (max-width: 768px) {
+    .vitamin-grid, .interaction-grid, .age-grid {
+        grid-template-columns: 1fr;
+    }
+}

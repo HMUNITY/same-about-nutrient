@@ -38,6 +38,36 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.vitamins-minerals-container h3 {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+.vitamins-minerals-container p {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+.tracker-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.food-selection, .daily-log, .saved-notes {
+    padding: 1rem;
+    background-color: var(--light-bg);
+    border-radius: 4px;
+}
+
+select, input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+}
+
 button {
     padding: 0.5rem 1rem;
     background-color: var(--accent-color);
@@ -52,16 +82,9 @@ button:hover {
     background-color: var(--secondary-color);
 }
 
-.tracker-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-select, input, textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border: 1px solid var(--secondary-color);
-    border-radius: 4px;
+@media (max-width: 768px) {
+    .content-section {
+        margin: 1rem;
+        padding: 1rem;
+    }
 }

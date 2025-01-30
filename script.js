@@ -1,82 +1,125 @@
-// Data structure for measurements
-const measurements = {
-    volume: {
-        "1 puodelis/cup": [
-            "Garbanzo pupelės | Chickpeas",
-            "Ananasai | Pineapple",
-            "Braškės | Strawberries",
-            "Briuselio kopūstai | Brussels sprouts"
-        ],
-        "2-3 puodeliai/cups": [
-            "Lęšiai | Lentils (2)",
-            "Sojos pupelės | Soy beans (3)",
-            "Saldžiosios bulvės | Sweet Potatoes (3)",
-            "Jogurtas | Yogurt (3)"
-        ],
-        "4-5 puodeliai/cups": [
-            "Šparagai | Asparagus (4)",
-            "Špinatai | Spinach (4)",
-            "Kopūstas | Cabbage (5)",
-            "Grybai Crimini | Crimini Mushrooms (5)",
-            "Swiss chard (5)"
-        ]
+// Data Structures
+const foodDatabase = {
+    grains: {
+        "Rye": { serving: "100g", nutrients: { fiber: 15.1, protein: 10.3 } },
+        "Barley": { serving: "120g", nutrients: { fiber: 17.3, protein: 12.5 } },
+        "Lentils": { serving: "2 cups", nutrients: { protein: 17.9, iron: 6.6 } }
+        // Add more items
     },
-    weight: {
-        "100g": ["Tofu"],
-        "150g": ["Menkė | Cod"],
-        "200g": ["Elniena | Venison"],
-        "300g": ["Sūris | Cheese"],
-        "400g": ["Krevetės | Shrimp"],
-        "500g": ["Vištiena | Chicken", "Žuvis | Fish"],
-        "700g": ["Mišri mėsa | Mixed meats"],
-        "1kg": ["Kalakutiena | Turkey", "Tunas | Tuna", "Lašiša | Salmon"]
+    vegetables: {
+        "Asparagus": { serving: "4 cups", nutrients: { vitaminB1: 0.4, folate: 262 } },
+        "Sweet Potatoes": { serving: "3 cups", nutrients: { vitaminA: 1922, vitaminC: 35.3 } }
+        // Add more items
     },
-    count: {
-        "1 vnt./pc": ["Citrina | Lemon", "Grybai Shiitake | Shiitake Mushrooms"],
-        "2 vnt./pcs": ["Avokadai | Avocados", "Brokoliai | Broccoli"],
-        "4 vnt./pcs": ["Svogūnai | Onions", "Morkos | Carrots", "Kiaušiniai | Eggs"],
-        "10 vnt./pcs": ["Bananai | Bananas", "Kiaušiniai | Eggs (complete set)"]
+    proteins: {
+        "Chicken": { serving: "500g", nutrients: { protein: 155, vitaminB6: 2.5 } },
+        "Salmon": { serving: "1kg", nutrients: { omega3: 4.023, protein: 208 } }
+        // Add more items
     }
 };
 
-// Function to load measurement content
-function loadMeasurementContent(type) {
-    const container = document.querySelector('.measurement-content');
-    container.innerHTML = '';
-    
-    Object.entries(measurements[type]).forEach(([measure, items]) => {
-        const div = document.createElement('div');
-        div.className = 'measurement-group';
-        div.innerHTML = `
-            <h3>${measure}</h3>
-            <ul>
-                ${items.map(item => `<li>${item}</li>`).join('')}
-            </ul>
-        `;
-        container.appendChild(div);
+const tcmClock = {
+    "Heart": { time: "11:00-13:00", element: "Fire", nutrients: ["Iron", "Copper"] },
+    "Liver": { time: "01:00-03:00", element: "Wood", nutrients: ["Iron", "Zinc"] },
+    // Add more organs
+};
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    initializeTabs();
+    initializeforms();
+    setupTCMClock();
+    setupContactForm();
+});
+
+// Tab Navigation
+function initializeTabs() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            loadTabContent(btn.dataset.tab);
+        });
     });
 }
 
-// Event listeners for tabs
-document.addEventListener('DOMContentLoaded', () => {
-    const tabs = document.querySelectorAll('.tab-btn');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            loadMeasurementContent(tab.dataset.tab);
-        });
-    });
-
-    // Load initial content
-    loadMeasurementContent('volume');
-});
-
-// Add smooth scrolling for navigation
-document.querySelectorAll('nav a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+// Form Handling
+function initializeforms() {
+    const foodSelectionForm = document.getElementById('foodSelectionForm');
+    foodSelectionForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const section = document.querySelector(this.getAttribute('href'));
-        section.scrollIntoView({ behavior: 'smooth' });
+        calculateNutrition();
     });
-});
+}
+
+// Nutrition Calculation
+function calculateNutrition() {
+    const food = document.getElementById('foodItem').value;
+    const quantity = document.getElementById('quantity').value;
+    const unit = document.getElementById('unit').value;
+    
+    // Perform calculations
+    const results = performNutritionCalculation(food, quantity, unit);
+    displayResults(results);
+    saveEntry(results);
+}
+
+// TCM Clock Visualization
+function setupTCMClock() {
+    const clockContainer = document.querySelector('.clock-visual');
+    createClockVisualization(clockContainer);
+    updateTCMRecommendations();
+}
+
+// Contact Form
+function setupContactForm() {
+    const photoUpload = document.getElementById('photoUpload');
+    photoUpload.addEventListener('change', (e) => {
+        const fileName = e.target.files[0]?.name || 'No file selected';
+        document.getElementById('fileName').textContent = fileName;
+    });
+
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Handle form submission
+    });
+}
+
+// Utility Functions
+function saveEntry(data) {
+    const entry = {
+        ...data,
+        timestamp: new Date().toISOString(),
+        comments: []
+    };
+    
+    // Save to local storage
+    const savedEntries = JSON.parse(localStorage.getItem('nutritionEntries') || '[]');
+    savedEntries.push(entry);
+    localStorage.setItem('nutritionEntries', JSON.stringify(savedEntries));
+    
+    updateSavedEntriesDisplay();
+}
+
+function updateSavedEntriesDisplay() {
+    const entriesContainer = document.getElementById('savedEntries');
+    const entries = JSON.parse(localStorage.getItem('nutritionEntries') || '[]');
+    
+    entriesContainer.innerHTML = entries.map(entry => `
+        <div class="entry-card">
+            <h4>${entry.food}</h4>
+            <p>Added: ${new Date(entry.timestamp).toLocaleString()}</p>
+            <div class="comments">
+                ${entry.comments.map(comment => `
+                    <p class="comment">${comment}</p>
+                `).join('')}
+            </div>
+            <button onclick="addComment(${entry.timestamp})">Add Comment</button>
+            <button onclick="deleteEntry(${entry.timestamp})">Delete</button>
+        </div>
+    `).join('');
+}
+
+// Initialize the application
+loadTabContent('grains'); // Load initial content

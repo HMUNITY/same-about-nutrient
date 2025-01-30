@@ -1,125 +1,172 @@
-// Data Structures
-const foodDatabase = {
+// Database of nutrients and foods
+const foodData = {
     grains: {
-        "Rye": { serving: "100g", nutrients: { fiber: 15.1, protein: 10.3 } },
-        "Barley": { serving: "120g", nutrients: { fiber: 17.3, protein: 12.5 } },
-        "Lentils": { serving: "2 cups", nutrients: { protein: 17.9, iron: 6.6 } }
-        // Add more items
+        "Rye": { nutrients: { fiber: 15, protein: 10 }, unit: "g" },
+        "Barley": { nutrients: { fiber: 17, protein: 12 }, unit: "g" },
+        "Lentils": { nutrients: { protein: 18, iron: 7 }, unit: "cups" }
     },
     vegetables: {
-        "Asparagus": { serving: "4 cups", nutrients: { vitaminB1: 0.4, folate: 262 } },
-        "Sweet Potatoes": { serving: "3 cups", nutrients: { vitaminA: 1922, vitaminC: 35.3 } }
-        // Add more items
+        "Asparagus": { nutrients: { vitaminB1: 0.4, folate: 262 }, unit: "cups" },
+        "Sweet Potatoes": { nutrients: { vitaminA: 1922, vitaminC: 35 }, unit: "cups" },
+        "Spinach": { nutrients: { iron: 2.7, vitaminK: 483 }, unit: "cups" }
     },
     proteins: {
-        "Chicken": { serving: "500g", nutrients: { protein: 155, vitaminB6: 2.5 } },
-        "Salmon": { serving: "1kg", nutrients: { omega3: 4.023, protein: 208 } }
-        // Add more items
+        "Chicken": { nutrients: { protein: 155, vitaminB6: 2.5 }, unit: "g" },
+        "Salmon": { nutrients: { omega3: 4.0, protein: 208 }, unit: "g" },
+        "Eggs": { nutrients: { protein: 12, vitaminB12: 0.6 }, unit: "pieces" }
     }
 };
 
-const tcmClock = {
-    "Heart": { time: "11:00-13:00", element: "Fire", nutrients: ["Iron", "Copper"] },
-    "Liver": { time: "01:00-03:00", element: "Wood", nutrients: ["Iron", "Zinc"] },
-    // Add more organs
+const tcmData = {
+    "11:00-13:00": { organ: "Heart", element: "Fire", nutrients: ["Iron", "Copper"] },
+    "13:00-15:00": { organ: "Small Intestine", element: "Fire", nutrients: ["Vitamin B12", "Zinc"] },
+    "15:00-17:00": { organ: "Bladder", element: "Water", nutrients: ["Magnesium", "Calcium"] },
+    "17:00-19:00": { organ: "Kidney", element: "Water", nutrients: ["Iron", "Vitamin D"] },
+    "19:00-21:00": { organ: "Circulation", element: "Fire", nutrients: ["Vitamin C", "Potassium"] },
+    "21:00-23:00": { organ: "Triple Heater", element: "Fire", nutrients: ["Vitamin B complex"] }
 };
 
-// Event Listeners
+// Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
-    initializeTabs();
-    initializeforms();
-    setupTCMClock();
-    setupContactForm();
+    initializeFoodCategories();
+    updateTCMClock();
+    loadSavedNotes();
+    setupPhotoUpload();
+    setInterval(updateTCMClock, 60000); // Update clock every minute
 });
 
-// Tab Navigation
-function initializeTabs() {
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            tabBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            loadTabContent(btn.dataset.tab);
+// Initialize food categories
+function initializeFoodCategories() {
+    const categorySelect = document.getElementById('foodCategory');
+    Object.keys(foodData).forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+        categorySelect.appendChild(option);
+    });
+
+    categorySelect.addEventListener('change', updateFoodItems);
+}
+
+// Update food items based on category
+function updateFoodItems() {
+    const category = document.getElementById('foodCategory').value;
+    const foodSelect = document.getElementById('foodItem');
+    foodSelect.innerHTML = '<option value="">Select Food</option>';
+
+    if (category) {
+        Object.keys(foodData[category]).forEach(food => {
+            const option = document.createElement('option');
+            option.value = food;
+            option.textContent = food;
+            foodSelect.appendChild(option);
         });
-    });
+    }
 }
 
-// Form Handling
-function initializeforms() {
-    const foodSelectionForm = document.getElementById('foodSelectionForm');
-    foodSelectionForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        calculateNutrition();
-    });
-}
-
-// Nutrition Calculation
-function calculateNutrition() {
+// Add food item to daily log
+function addFoodItem() {
+    const category = document.getElementById('foodCategory').value;
     const food = document.getElementById('foodItem').value;
     const quantity = document.getElementById('quantity').value;
-    const unit = document.getElementById('unit').value;
+
+    if (!category || !food || !quantity) {
+        alert('Please fill in all fields');
+        return;
+    }
+
+    const entry = {
+        food,
+        quantity,
+        unit: foodData[category][food].unit,
+        timestamp: new Date().toISOString()
+    };
+
+    let entries = JSON.parse(localStorage.getItem('foodEntries') || '[]');
+    entries.push(entry);
+    localStorage.setItem('foodEntries', JSON.stringify(entries));
+
+    updateDailyLog();
+    document.getElementById('quantity').value = '';
+}
+
+// Update the daily log display
+function updateDailyLog() {
+    const entries = JSON.parse(localStorage.getItem('foodEntries') || '[]');
+    const dailyEntries = document.getElementById('dailyEntries');
     
-    // Perform calculations
-    const results = performNutritionCalculation(food, quantity, unit);
-    displayResults(results);
-    saveEntry(results);
+    dailyEntries.innerHTML = entries.map(entry => `
+        <div class="entry">
+            <p>${entry.food}: ${entry.quantity} ${entry.unit}</p>
+            <small>${new Date(entry.timestamp).toLocaleTimeString()}</small>
+        </div>
+    `).join('');
 }
 
-// TCM Clock Visualization
-function setupTCMClock() {
-    const clockContainer = document.querySelector('.clock-visual');
-    createClockVisualization(clockContainer);
-    updateTCMRecommendations();
+// TCM Clock functions
+function updateTCMClock() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    
+    const currentElement = document.getElementById('currentElement');
+    let currentPeriod = Object.entries(tcmData).find(([timeRange]) => {
+        const [start, end] = timeRange.split('-');
+        return timeString >= start && timeString < end;
+    });
+
+    if (currentPeriod) {
+        const [timeRange, data] = currentPeriod;
+        currentElement.innerHTML = `
+            <h3>Current Period: ${timeRange}</h3>
+            <p>Organ: ${data.organ}</p>
+            <p>Element: ${data.element}</p>
+            <p>Recommended Nutrients: ${data.nutrients.join(', ')}</p>
+        `;
+    }
 }
 
-// Contact Form
-function setupContactForm() {
+// Notes functions
+function addNote() {
+    const noteInput = document.getElementById('noteInput');
+    if (!noteInput.value.trim()) return;
+
+    const note = {
+        text: noteInput.value,
+        timestamp: new Date().toISOString()
+    };
+
+    let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+    notes.push(note);
+    localStorage.setItem('notes', JSON.stringify(notes));
+
+    noteInput.value = '';
+    loadSavedNotes();
+}
+
+function loadSavedNotes() {
+    const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+    const savedNotes = document.getElementById('savedNotes');
+    
+    savedNotes.innerHTML = notes.map(note => `
+        <div class="note">
+            <p>${note.text}</p>
+            <small>${new Date(note.timestamp).toLocaleString()}</small>
+        </div>
+    `).join('');
+}
+
+// Photo upload handling
+function setupPhotoUpload() {
     const photoUpload = document.getElementById('photoUpload');
     photoUpload.addEventListener('change', (e) => {
         const fileName = e.target.files[0]?.name || 'No file selected';
         document.getElementById('fileName').textContent = fileName;
     });
-
-    document.getElementById('contactForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        // Handle form submission
-    });
 }
 
-// Utility Functions
-function saveEntry(data) {
-    const entry = {
-        ...data,
-        timestamp: new Date().toISOString(),
-        comments: []
-    };
-    
-    // Save to local storage
-    const savedEntries = JSON.parse(localStorage.getItem('nutritionEntries') || '[]');
-    savedEntries.push(entry);
-    localStorage.setItem('nutritionEntries', JSON.stringify(savedEntries));
-    
-    updateSavedEntriesDisplay();
-}
-
-function updateSavedEntriesDisplay() {
-    const entriesContainer = document.getElementById('savedEntries');
-    const entries = JSON.parse(localStorage.getItem('nutritionEntries') || '[]');
-    
-    entriesContainer.innerHTML = entries.map(entry => `
-        <div class="entry-card">
-            <h4>${entry.food}</h4>
-            <p>Added: ${new Date(entry.timestamp).toLocaleString()}</p>
-            <div class="comments">
-                ${entry.comments.map(comment => `
-                    <p class="comment">${comment}</p>
-                `).join('')}
-            </div>
-            <button onclick="addComment(${entry.timestamp})">Add Comment</button>
-            <button onclick="deleteEntry(${entry.timestamp})">Delete</button>
-        </div>
-    `).join('');
-}
-
-// Initialize the application
-loadTabContent('grains'); // Load initial content
+// Contact form submission
+function submitForm() {
+    const message = document.getElementById('messageInput').value;
+    const photo = document.getElementById('photoUpload').files

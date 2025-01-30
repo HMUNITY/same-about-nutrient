@@ -1,54 +1,82 @@
-cat > script.js << 'EOF'
+// Data structure for measurements
+const measurements = {
+    volume: {
+        "1 puodelis/cup": [
+            "Garbanzo pupelės | Chickpeas",
+            "Ananasai | Pineapple",
+            "Braškės | Strawberries",
+            "Briuselio kopūstai | Brussels sprouts"
+        ],
+        "2-3 puodeliai/cups": [
+            "Lęšiai | Lentils (2)",
+            "Sojos pupelės | Soy beans (3)",
+            "Saldžiosios bulvės | Sweet Potatoes (3)",
+            "Jogurtas | Yogurt (3)"
+        ],
+        "4-5 puodeliai/cups": [
+            "Šparagai | Asparagus (4)",
+            "Špinatai | Spinach (4)",
+            "Kopūstas | Cabbage (5)",
+            "Grybai Crimini | Crimini Mushrooms (5)",
+            "Swiss chard (5)"
+        ]
+    },
+    weight: {
+        "100g": ["Tofu"],
+        "150g": ["Menkė | Cod"],
+        "200g": ["Elniena | Venison"],
+        "300g": ["Sūris | Cheese"],
+        "400g": ["Krevetės | Shrimp"],
+        "500g": ["Vištiena | Chicken", "Žuvis | Fish"],
+        "700g": ["Mišri mėsa | Mixed meats"],
+        "1kg": ["Kalakutiena | Turkey", "Tunas | Tuna", "Lašiša | Salmon"]
+    },
+    count: {
+        "1 vnt./pc": ["Citrina | Lemon", "Grybai Shiitake | Shiitake Mushrooms"],
+        "2 vnt./pcs": ["Avokadai | Avocados", "Brokoliai | Broccoli"],
+        "4 vnt./pcs": ["Svogūnai | Onions", "Morkos | Carrots", "Kiaušiniai | Eggs"],
+        "10 vnt./pcs": ["Bananai | Bananas", "Kiaušiniai | Eggs (complete set)"]
+    }
+};
+
+// Function to load measurement content
+function loadMeasurementContent(type) {
+    const container = document.querySelector('.measurement-content');
+    container.innerHTML = '';
+    
+    Object.entries(measurements[type]).forEach(([measure, items]) => {
+        const div = document.createElement('div');
+        div.className = 'measurement-group';
+        div.innerHTML = `
+            <h3>${measure}</h3>
+            <ul>
+                ${items.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// Event listeners for tabs
 document.addEventListener('DOMContentLoaded', () => {
-    const state = { ingredients: [] };
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            loadMeasurementContent(tab.dataset.tab);
+        });
+    });
 
-    function updateClock() {
-        const now = new Date();
-        document.getElementById('current-time').textContent = `${now.getHours()}:00`;
-    }
+    // Load initial content
+    loadMeasurementContent('volume');
+});
 
-    function getOrganFunction(hour) {
-        if (hour >= 7 && hour < 11) return "Skrandis/Blužnis: Virškinimas. Mikroelementai: Cinkas, Chromas.";
-        if (hour >= 11 && hour < 13) return "Širdis: Kraujotaka. Mikroelementai: Geležis, Varis.";
-        if (hour >= 15 && hour < 19) return "Inkstai/Šlapimo pūslė: Skysčių balansas. Mikroelementai: Magnis, Kalis.";
-        if (hour >= 19 && hour < 21) return "Perikardas: Emocinė būsena. Mikroelementai: Magnis, Kalis.";
-        if (hour >= 1 && hour < 3) return "Kepenys: Detoksikacija. Mikroelementai: Geležis, Cinkas, Varis.";
-        return "Šiuo metu nėra dominuojančio organo aktyvumo.";
-    }
-
-    function showOrganFunction() {
-        const now = new Date();
-        const organFunction = getOrganFunction(now.getHours());
-        document.getElementById("organ-function").textContent = organFunction;
-    }
-
-    function addIngredient() {
-        const name = document.getElementById('ingredient-name').value;
-        const amount = document.getElementById('ingredient-amount').value;
-        if (name && amount) {
-            state.ingredients.push({ name, amount });
-            const li = document.createElement('li');
-            li.textContent = `${name} - ${amount}g`;
-            document.getElementById('saved-list').appendChild(li);
-        }
-    }
-
-    document.getElementById('add-ingredient').addEventListener('click', addIngredient);
-    document.getElementById('show-organ-function').addEventListener('click', showOrganFunction);
-
-    updateClock();
-    setInterval(updateClock, 3600000);
-
-    const ingredientList = document.getElementById('ingredient-options');
-    const ingredients = ["Špinatai", "Morkos", "Saldžios bulvės", "Pienas", "Jogurtas", "Sūris", "Tofu", "Oregano", "Bazilikas",
-        "Lašiša", "Sardinė", "Tunas", "Kodas", "Kiaušiniai", "Briuselio kopūstai", "Braškės", "Papaja", "Citrusiniai vaisiai",
-        "Brokoliai", "Saulėgrąžų sėklos", "Sezamo sėklos", "Lęšiai", "Žalieji žirneliai", "Svogūnai", "Bananai", "Pomidorai",
-        "Raudona mėsa", "Krevetės", "Jūros dumbliai", "Moliūgų sėklos", "Pupos", "Anakardžiai", "Migdolai", "Rudi ryžiai"];
-
-    ingredients.forEach(ingredient => {
-        const li = document.createElement('li');
-        li.textContent = ingredient;
-        ingredientList.appendChild(li);
+// Add smooth scrolling for navigation
+document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const section = document.querySelector(this.getAttribute('href'));
+        section.scrollIntoView({ behavior: 'smooth' });
     });
 });
-EOF

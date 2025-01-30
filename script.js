@@ -51,11 +51,11 @@ function addFoodItem() {
     entry.textContent = `${foodItem} x${quantity} - Nutrients: ${JSON.stringify(food.nutrients)}`;
     dailyEntries.appendChild(entry);
 
-    updateDailyTotals(foodItem, quantity);
+    updateDailyTotals(foodCategory, foodItem, quantity);
 }
 
 // Update Daily Totals
-function updateDailyTotals(foodItem, quantity) {
+function updateDailyTotals(foodCategory, foodItem, quantity) {
     const dailyTotals = document.getElementById('dailyTotals');
     const food = foodData[foodCategory][foodItem];
     let totalNutrients = {};

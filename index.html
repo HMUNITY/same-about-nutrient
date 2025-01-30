@@ -12,7 +12,6 @@
     </nav>
 
     <main>
-        <!-- Food Lists Section -->
         <section id="foodLists" class="content-section">
             <h2>Food Database</h2>
             <div class="tab-container">
@@ -24,14 +23,16 @@
             <div id="foodContent" class="tab-content"></div>
         </section>
 
-        <!-- Daily Tracking Section -->
         <section id="dailyTracker" class="content-section">
             <h2>Daily Nutrition Tracker</h2>
             <div class="tracker-container">
                 <div class="food-selection">
                     <h3>1. Select Food Item</h3>
-                    <select id="foodCategory">
+                    <select id="foodCategory" onchange="updateFoodItems()">
                         <option value="">Select Category</option>
+                        <option value="grains">Grains & Legumes</option>
+                        <option value="vegetables">Vegetables</option>
+                        <option value="proteins">Proteins</option>
                     </select>
                     <select id="foodItem">
                         <option value="">Select Food</option>
@@ -57,31 +58,6 @@
             </div>
         </section>
 
-        <!-- TCM Clock -->
-        <section id="tcmSection" class="content-section">
-            <h2>TCM Nutrient Timer</h2>
-            <div class="tcm-container">
-                <div id="tcmClock" class="tcm-clock"></div>
-                <div id="currentElement" class="tcm-info"></div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="content-section">
-            <h2>Contact Food Footprint Team</h2>
-            <div class="contact-form">
-                <input type="email" value="8pbestourhqchi@gmail.com" readonly>
-                <textarea id="messageInput" placeholder="Your message"></textarea>
-                <div class="upload-container">
-                    <label for="photoUpload" class="upload-btn">Upload Photo</label>
-                    <input type="file" id="photoUpload" accept="image/*">
-                    <span id="fileName"></span>
-                </div>
-                <button onclick="submitForm()">Send Message</button>
-            </div>
-        </section>
-
-        <!-- Additional Vitamins and Minerals Section -->
         <section id="vitaminsMinerals" class="content-section">
             <h2>Additional Vitamins & Minerals</h2>
             <div class="vitamins-minerals-container">

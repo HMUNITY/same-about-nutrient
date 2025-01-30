@@ -24,71 +24,60 @@
             <div id="foodContent" class="tab-content"></div>
         </section>
 
-        <!-- Tracking Section -->
-        <section id="trackingSection" class="content-section">
-            <h2>Track Your Nutrition</h2>
-            
-            <!-- Selection Form -->
-            <div class="tracking-container">
-                <div class="selection-form">
-                    <h3>1. Select Foods</h3>
-                    <form id="foodSelectionForm">
-                        <select id="foodCategory" required>
-                            <option value="">Select Category</option>
-                        </select>
-                        <select id="foodItem" required>
-                            <option value="">Select Food</option>
-                        </select>
-                        <input type="number" id="quantity" placeholder="Quantity" required>
-                        <select id="unit" required>
-                            <option value="">Select Unit</option>
-                        </select>
-                        <button type="submit">Add to Calculation</button>
-                    </form>
+        <!-- Daily Tracking Section -->
+        <section id="dailyTracker" class="content-section">
+            <h2>Daily Nutrition Tracker</h2>
+            <div class="tracker-container">
+                <div class="food-selection">
+                    <h3>1. Select Food Item</h3>
+                    <select id="foodCategory">
+                        <option value="">Select Category</option>
+                    </select>
+                    <select id="foodItem">
+                        <option value="">Select Food</option>
+                    </select>
+                    <input type="number" id="quantity" min="0.1" step="0.1" placeholder="Amount">
+                    <button onclick="addFoodItem()">Add to Daily Log</button>
                 </div>
 
-                <!-- Calculation Display -->
-                <div class="calculation-display">
-                    <h3>2. Nutrition Calculation</h3>
-                    <div id="calculationResults"></div>
+                <div class="daily-log">
+                    <h3>2. Today's Log</h3>
+                    <div id="dailyEntries"></div>
+                    <div id="dailyTotals"></div>
                 </div>
 
-                <!-- Saved Data -->
-                <div class="saved-data">
-                    <h3>3. Saved Entries</h3>
-                    <div id="savedEntries">
-                        <!-- Entries will be populated here -->
+                <div class="saved-notes">
+                    <h3>3. Notes & Comments</h3>
+                    <div id="notesSection">
+                        <textarea id="noteInput" placeholder="Add a note about your meals..."></textarea>
+                        <button onclick="addNote()">Save Note</button>
                     </div>
+                    <div id="savedNotes"></div>
                 </div>
             </div>
         </section>
 
-        <!-- TCM Clock Section -->
-        <section id="tcmClock" class="content-section">
-            <h2>TCM Circadian Rhythm</h2>
+        <!-- TCM Clock -->
+        <section id="tcmSection" class="content-section">
+            <h2>TCM Nutrient Timer</h2>
             <div class="tcm-container">
-                <div class="clock-visual"></div>
-                <div class="nutrients-list">
-                    <h3>Recommended Nutrients by Time</h3>
-                    <div id="tcmNutrients"></div>
-                </div>
+                <div id="tcmClock" class="tcm-clock"></div>
+                <div id="currentElement" class="tcm-info"></div>
             </div>
         </section>
 
         <!-- Contact Section -->
         <section id="contact" class="content-section">
             <h2>Contact Food Footprint Team</h2>
-            <div class="contact-container">
-                <form id="contactForm" class="contact-form">
-                    <input type="email" value="8pbestourhqchi@gmail.com" readonly>
-                    <textarea placeholder="Your message"></textarea>
-                    <div class="upload-container">
-                        <label for="photoUpload" class="upload-btn">Upload Photo</label>
-                        <input type="file" id="photoUpload" accept="image/*">
-                        <span id="fileName"></span>
-                    </div>
-                    <button type="submit">Send Message</button>
-                </form>
+            <div class="contact-form">
+                <input type="email" value="8pbestourhqchi@gmail.com" readonly>
+                <textarea id="messageInput" placeholder="Your message"></textarea>
+                <div class="upload-container">
+                    <label for="photoUpload" class="upload-btn">Upload Photo</label>
+                    <input type="file" id="photoUpload" accept="image/*">
+                    <span id="fileName"></span>
+                </div>
+                <button onclick="submitForm()">Send Message</button>
             </div>
         </section>
     </main>

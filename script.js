@@ -1,5 +1,4 @@
-// script.js
-// Food data and game constants
+// Food database
 const foodData = {
     grains: {
         "Rugiai": { nutrients: { fiber: 15, protein: 10 }, unit: "g" },
@@ -18,11 +17,7 @@ const foodData = {
     }
 };
 
-const PACMAN_SIZE = 20;
-const GHOST_SIZE = 20;
-const PELLET_SIZE = 4;
-
-// Local Storage Functions
+// Storage Management
 function saveToLocalStorage(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
 }
@@ -37,7 +32,9 @@ function getCurrentDate() {
     return document.getElementById('trackingDate').value || new Date().toISOString().split('T')[0];
 }
 
-// Food Selection Functions
+// Food Selection and Management
+document.getElementById('foodCategory').addEventListener('change', updateFoodItems);
+
 function updateFoodItems() {
     const category = document.getElementById('foodCategory').value;
     const foodItemSelect = document.getElementById('foodItem');
@@ -55,62 +52,110 @@ function updateFoodItems() {
 
 function addFoodItem() {
     const date = getCurrentDate();
-    const foodCategory = document.getElementById('foodCategory').value;
-    const foodItem = document.getElementById('foodItem').value;
+    const category = document.getElementById('foodCategory').value;
+    const item = document.getElementById('foodItem').value;
     const quantity = parseFloat(document.getElementById('quantity').value);
 
-    if (!foodCategory || !foodItem || isNaN(quantity) || quantity <= 0) {
-        alert('Prašome pasirinkti tinkamą maistą ir kiekį');
+    if (!category || !item || isNaN(quantity) || quantity <= 0) {
+        alert('Prašome užpildyti visus laukus teisingai');
         return;
     }
 
     const dailyData = getFromLocalStorage(date) || { entries: [], notes: [], totals: {} };
     
-    const food = foodData[foodCategory][foodItem];
     const entry = {
-        category: foodCategory,
-        item: foodItem,
-        quantity: quantity,
-        nutrients: food.nutrients,
+        category,
+        item,
+        quantity,
+        nutrients: calculateNutrients(category, item, quantity),
         timestamp: new Date().toISOString()
     };
 
     dailyData.entries.push(entry);
-    updateDailyTotals(dailyData);
+    updateTotals(dailyData);
     saveToLocalStorage(date, dailyData);
     displayDailyData(dailyData);
 }
 
-// Continue with the rest of the JavaScript functions from the previous implementation
-// ... [Previous game implementation, reporting, and analysis functions remain the same]
-
-// Initialize everything when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    // Set initial date
-    const date = getCurrentDate();
-    document.getElementById('trackingDate').value = date;
+function calculateNutrients(category, item, quantity) {
+    const foodItem = foodData[category][item];
+    const nutrients = {};
     
-    // Load saved data
-    const dailyData = getFromLocalStorage(date);
-    if (dailyData) {
-        displayDailyData(dailyData);
-        displayNotes(dailyData.notes);
+    for (let nutrient in foodItem.nutrients) {
+        nutrients[nutrient] = foodItem.nutrients[nutrient] * quantity;
     }
     
-    // Initialize Pac-Man game
-    const canvas = document.getElementById('pacmanCanvas');
-    const game = new PacmanGame(canvas);
+    return nutrients;
+}
+
+function updateTotals(dailyData) {
+    const totals = {};
     
-    // Add game controls
-    const gameControls = document.createElement('div');
-    gameControls.className = 'game-controls';
-    gameControls.innerHTML = `
-        <button onclick="startGame()">Pradėti Žaidimą</button>
-        <p>Naudokite rodyklių klavišus Pac-Man valdymui</p>
-    `;
-    canvas.parentNode.insertBefore(gameControls, canvas);
+    dailyData.entries.forEach(entry => {
+        for (let nutrient in entry.nutrients) {
+            totals[nutrient] = (totals[nutrient] || 0) + entry.nutrients[nutrient];
+        }
+    });
     
-    window.startGame = () => {
-        game.start();
-    };
-});
+    dailyData.totals = totals;
+}
+
+function displayDailyData(dailyData) {
+    const entriesDiv = document.getElementById('dailyEntries');
+    const totalsDiv = document.getElementById('dailyTotals');
+    
+    // Display entries
+    entriesDiv.innerHTML = '<h4>Šiandienos Įrašai:</h4>';
+    dailyData.entries.forEach((entry, index) => {
+        entriesDiv.innerHTML += `
+            <div class="entry-item">
+                <p>${entry.quantity} ${foodData[entry.category][entry.item].unit} ${entry.item}</p>
+                <button onclick="deleteEntry(${index})" class="warning-btn">Ištrinti</button>
+            </div>
+        `;
+    });
+    
+    // Display totals
+    totalsDiv.innerHTML = '<h4>Dienos Suma:</h4>';
+    for (let nutrient in dailyData.totals) {
+        totalsDiv.innerHTML += `
+            <p>${nutrient}: ${dailyData.totals[nutrient].toFixed(1)}</p>
+        `;
+    }
+}
+
+function deleteEntry(index) {
+    const date = getCurrentDate();
+    const dailyData = getFromLocalStorage(date);
+    
+    if (dailyData && dailyData.entries) {
+        dailyData.entries.splice(index, 1);
+        updateTotals(dailyData);
+        saveToLocalStorage(date, dailyData);
+        displayDailyData(dailyData);
+    }
+}
+
+function clearEntries() {
+    if (confirm('Ar tikrai norite išvalyti visus šiandienos įrašus?')) {
+        const date = getCurrentDate();
+        const dailyData = { entries: [], notes: [], totals: {} };
+        saveToLocalStorage(date, dailyData);
+        displayDailyData(dailyData);
+    }
+}
+
+// Notes Management
+function addNote() {
+    const noteText = document.getElementById('noteInput').value.trim();
+    if (!noteText) return;
+
+    const date = getCurrentDate();
+    const dailyData = getFromLocalStorage(date) || { entries: [], notes: [], totals: {} };
+    
+    dailyData.notes.push({
+        text: noteText,
+        timestamp: new Date().toISOString()
+    });
+    
+    saveToLocalStorage(

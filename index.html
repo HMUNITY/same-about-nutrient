@@ -18,17 +18,18 @@
     </nav>
 
     <main>
-        <section id="foodLists" class="content-section">
-            <h2>Maisto Duomenų Bazė</h2>
-            <div class="tab-container">
-                <button class="tab-btn large-btn active" data-tab="grains">Grūdai ir Ankštiniai</button>
-                <button class="tab-btn large-btn" data-tab="vegetables">Daržovės</button>
-                <button class="tab-btn large-btn" data-tab="proteins">Baltymai</button>
-                <button class="tab-btn large-btn" data-tab="vitamins">Vitaminai ir Mineralai</button>
+        <!-- Random Links Section -->
+        <section id="randomLinks" class="content-section">
+            <h2>Naudingos Nuorodos</h2>
+            <div class="links-container">
+                <a id="link1" target="_blank" class="link-btn">Nutritionist Blog</a>
+                <a id="link2" target="_blank" class="link-btn">Market Prices</a>
+                <a id="link3" target="_blank" class="link-btn">Recipes</a>
+                <a id="link4" target="_blank" class="link-btn">Health News</a>
             </div>
-            <div id="foodContent" class="tab-content"></div>
         </section>
 
+        <!-- Daily Tracker Section -->
         <section id="dailyTracker" class="content-section">
             <h2>Dienos Mitybos Sekimas</h2>
             <div class="date-selector">
@@ -37,7 +38,7 @@
             </div>
             <div class="tracker-container">
                 <div class="food-selection">
-                    <h3>1. Pasirinkite Maistą</h3>
+                    <h3>Pasirinkite Maistą</h3>
                     <select id="foodCategory" class="large-input">
                         <option value="">Pasirinkite Kategoriją</option>
                         <option value="grains">Grūdai ir Ankštiniai</option>
@@ -53,13 +54,13 @@
                 </div>
 
                 <div class="daily-log">
-                    <h3>2. Šiandienos Žurnalas</h3>
+                    <h3>Šiandienos Žurnalas</h3>
                     <div id="dailyEntries"></div>
                     <div id="dailyTotals"></div>
                 </div>
 
                 <div class="saved-notes">
-                    <h3>3. Pastabos</h3>
+                    <h3>Pastabos</h3>
                     <div id="notesSection">
                         <textarea id="noteInput" class="large-input" placeholder="Pridėkite pastabą..."></textarea>
                         <button onclick="addNote()" class="large-btn success-btn spiral-effect">Išsaugoti Pastabą</button>
@@ -70,15 +71,16 @@
             </div>
         </section>
 
+        <!-- Pac-Man Game Section -->
         <section id="pacman" class="content-section">
             <h2>Pac-Man Žaidimas</h2>
             <div class="game-container">
                 <canvas id="pacmanCanvas"></canvas>
                 <div class="game-controls">
                     <button onclick="startGame()" class="large-btn game-btn spiral-effect">Pradėti Žaidimą</button>
+                    <button onclick="toggleFullscreen()" class="large-btn game-btn spiral-effect">Pilnas Ekranas</button>
                     <p>Naudokite rodyklių klavišus valdymui</p>
                 </div>
-                <div id="gameStats"></div>
             </div>
         </section>
     </main>

@@ -62,7 +62,7 @@ function addFoodItem() {
     }
 
     const dailyData = getFromLocalStorage(date) || { entries: [], notes: [], totals: {} };
-    
+
     const entry = {
         category,
         item,
@@ -80,30 +80,30 @@ function addFoodItem() {
 function calculateNutrients(category, item, quantity) {
     const foodItem = foodData[category][item];
     const nutrients = {};
-    
+
     for (let nutrient in foodItem.nutrients) {
         nutrients[nutrient] = foodItem.nutrients[nutrient] * quantity;
     }
-    
+
     return nutrients;
 }
 
 function updateTotals(dailyData) {
     const totals = {};
-    
+
     dailyData.entries.forEach(entry => {
         for (let nutrient in entry.nutrients) {
             totals[nutrient] = (totals[nutrient] || 0) + entry.nutrients[nutrient];
         }
     });
-    
+
     dailyData.totals = totals;
 }
 
 function displayDailyData(dailyData) {
     const entriesDiv = document.getElementById('dailyEntries');
     const totalsDiv = document.getElementById('dailyTotals');
-    
+
     // Display entries
     entriesDiv.innerHTML = '<h4>Šiandienos Įrašai:</h4>';
     dailyData.entries.forEach((entry, index) => {
@@ -114,7 +114,7 @@ function displayDailyData(dailyData) {
             </div>
         `;
     });
-    
+
     // Display totals
     totalsDiv.innerHTML = '<h4>Dienos Suma:</h4>';
     for (let nutrient in dailyData.totals) {
@@ -127,7 +127,7 @@ function displayDailyData(dailyData) {
 function deleteEntry(index) {
     const date = getCurrentDate();
     const dailyData = getFromLocalStorage(date);
-    
+
     if (dailyData && dailyData.entries) {
         dailyData.entries.splice(index, 1);
         updateTotals(dailyData);
@@ -152,10 +152,95 @@ function addNote() {
 
     const date = getCurrentDate();
     const dailyData = getFromLocalStorage(date) || { entries: [], notes: [], totals: {} };
-    
+
     dailyData.notes.push({
         text: noteText,
         timestamp: new Date().toISOString()
     });
-    
-    saveToLocalStorage(
+
+    saveToLocalStorage(date, dailyData);
+    displayNotes(dailyData);
+    document.getElementById('noteInput').value = '';
+}
+
+function displayNotes(dailyData) {
+    const notesDiv = document.getElementById('savedNotes');
+    notesDiv.innerHTML = '<h4>Išsaugotos Pastabos:</h4>';
+
+    dailyData.notes.forEach((note, index) => {
+        notesDiv.innerHTML += `
+            <div class="note-item">
+                <p>${note.text}</p>
+                <button onclick="deleteNote(${index})" class="warning-btn">Ištrinti</button>
+            </div>
+        `;
+    });
+}
+
+function deleteNote(index) {
+    const date = getCurrentDate();
+    const dailyData = getFromLocalStorage(date);
+
+    if (dailyData && dailyData.notes) {
+        dailyData.notes.splice(index, 1);
+        saveToLocalStorage(date, dailyData);
+        displayNotes(dailyData);
+    }
+}
+
+function clearNotes() {
+    if (confirm('Ar tikrai norite išvalyti visas pastabas?')) {
+        const date = getCurrentDate();
+        const dailyData = getFromLocalStorage(date) || { entries: [], notes: [], totals: {} };
+        dailyData.notes = [];
+        saveToLocalStorage(date, dailyData);
+        displayNotes(dailyData);
+    }
+}
+
+// Pac-Man Game
+let pacmanGame;
+
+function startGame() {
+    const canvas = document.getElementById('pacmanCanvas');
+    const ctx = canvas.getContext('2d');
+
+    pacmanGame = new PacmanGame(ctx);
+    pacmanGame.start();
+}
+
+class PacmanGame {
+    constructor(ctx) {
+        this.ctx = ctx;
+        this.pacman = { x: 50, y: 50, radius: 20, speed: 5 };
+        this.direction = { x: 0, y: 0 };
+        this.gameInterval = null;
+    }
+
+    start() {
+        document.addEventListener('keydown', this.handleKeyPress.bind(this));
+        this.gameInterval = setInterval(this.update.bind(this), 1000 / 60);
+    }
+
+    handleKeyPress(event) {
+        switch (event.key) {
+            case 'ArrowUp':
+                this.direction = { x: 0, y: -1 };
+                break;
+            case 'ArrowDown':
+                this.direction = { x: 0, y: 1 };
+                break;
+            case 'ArrowLeft':
+                this.direction = { x: -1, y: 0 };
+                break;
+            case 'ArrowRight':
+                this.direction = { x: 1, y: 0 };
+                break;
+        }
+    }
+
+    update() {
+        this.pacman.x += this.direction.x * this.pacman.speed;
+        this.pacman.y += this.direction.y * this.pacman.speed;
+
+        //

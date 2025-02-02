@@ -48,8 +48,8 @@
                         <option value="">Pasirinkite Maistą</option>
                     </select>
                     <input type="number" id="quantity" class="large-input" min="0.1" step="0.1" placeholder="Kiekis">
-                    <button onclick="addFoodItem()" class="large-btn primary-btn">Pridėti Maistą</button>
-                    <button onclick="clearEntries()" class="large-btn warning-btn">Išvalyti Viską</button>
+                    <button onclick="addFoodItem()" class="large-btn primary-btn spiral-effect">Pridėti Maistą</button>
+                    <button onclick="clearEntries()" class="large-btn warning-btn spiral-effect">Išvalyti Viską</button>
                 </div>
 
                 <div class="daily-log">
@@ -62,8 +62,8 @@
                     <h3>3. Pastabos</h3>
                     <div id="notesSection">
                         <textarea id="noteInput" class="large-input" placeholder="Pridėkite pastabą..."></textarea>
-                        <button onclick="addNote()" class="large-btn success-btn">Išsaugoti Pastabą</button>
-                        <button onclick="clearNotes()" class="large-btn warning-btn">Išvalyti Pastabas</button>
+                        <button onclick="addNote()" class="large-btn success-btn spiral-effect">Išsaugoti Pastabą</button>
+                        <button onclick="clearNotes()" class="large-btn warning-btn spiral-effect">Išvalyti Pastabas</button>
                     </div>
                     <div id="savedNotes"></div>
                 </div>
@@ -75,7 +75,7 @@
             <div class="game-container">
                 <canvas id="pacmanCanvas"></canvas>
                 <div class="game-controls">
-                    <button onclick="startGame()" class="large-btn game-btn">Pradėti Žaidimą</button>
+                    <button onclick="startGame()" class="large-btn game-btn spiral-effect">Pradėti Žaidimą</button>
                     <p>Naudokite rodyklių klavišus valdymui</p>
                 </div>
                 <div id="gameStats"></div>

@@ -1,71 +1,229 @@
+// index.html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutrition & TCM Tracker</title>
+    <title>Mitybos ir TCM Sekimas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="main-nav">
-        <h1>Nutrition & TCM Tracker</h1>
+        <h1>Mitybos ir TCM Sekimas</h1>
     </nav>
 
     <main>
         <section id="foodLists" class="content-section">
-            <h2>Food Database</h2>
+            <h2>Maisto Duomenų Bazė</h2>
             <div class="tab-container">
-                <button class="tab-btn active" data-tab="grains">Grains & Legumes</button>
-                <button class="tab-btn" data-tab="vegetables">Vegetables</button>
-                <button class="tab-btn" data-tab="proteins">Proteins</button>
-                <button class="tab-btn" data-tab="vitamins">Vitamins & Minerals</button>
+                <button class="tab-btn active" data-tab="grains">Grūdai ir Ankštiniai</button>
+                <button class="tab-btn" data-tab="vegetables">Daržovės</button>
+                <button class="tab-btn" data-tab="proteins">Baltymai</button>
+                <button class="tab-btn" data-tab="vitamins">Vitaminai ir Mineralai</button>
             </div>
             <div id="foodContent" class="tab-content"></div>
         </section>
 
         <section id="dailyTracker" class="content-section">
-            <h2>Daily Nutrition Tracker</h2>
+            <h2>Dienos Mitybos Sekimas</h2>
+            <div class="date-selector">
+                <label for="trackingDate">Data:</label>
+                <input type="date" id="trackingDate">
+            </div>
             <div class="tracker-container">
                 <div class="food-selection">
-                    <h3>1. Select Food Item</h3>
+                    <h3>1. Pasirinkite Maistą</h3>
                     <select id="foodCategory" onchange="updateFoodItems()">
-                        <option value="">Select Category</option>
-                        <option value="grains">Grains & Legumes</option>
-                        <option value="vegetables">Vegetables</option>
-                        <option value="proteins">Proteins</option>
+                        <option value="">Pasirinkite Kategoriją</option>
+                        <option value="grains">Grūdai ir Ankštiniai</option>
+                        <option value="vegetables">Daržovės</option>
+                        <option value="proteins">Baltymai</option>
                     </select>
                     <select id="foodItem">
-                        <option value="">Select Food</option>
+                        <option value="">Pasirinkite Maistą</option>
                     </select>
-                    <input type="number" id="quantity" min="0.1" step="0.1" placeholder="Amount">
-                    <button onclick="addFoodItem()">Add to Daily Log</button>
+                    <input type="number" id="quantity" min="0.1" step="0.1" placeholder="Kiekis">
+                    <button onclick="addFoodItem()">Pridėti į Dienos Žurnalą</button>
                 </div>
 
                 <div class="daily-log">
-                    <h3>2. Today's Log</h3>
+                    <h3>2. Šiandienos Žurnalas</h3>
                     <div id="dailyEntries"></div>
                     <div id="dailyTotals"></div>
                 </div>
 
                 <div class="saved-notes">
-                    <h3>3. Notes & Comments</h3>
+                    <h3>3. Pastabos</h3>
                     <div id="notesSection">
-                        <textarea id="noteInput" placeholder="Add a note about your meals..."></textarea>
-                        <button onclick="addNote()">Save Note</button>
+                        <textarea id="noteInput" placeholder="Pridėkite pastabą apie valgius..."></textarea>
+                        <button onclick="addNote()">Išsaugoti Pastabą</button>
                     </div>
                     <div id="savedNotes"></div>
                 </div>
             </div>
         </section>
 
-        <section id="vitaminsMinerals" class="content-section">
-            <h2>Additional Vitamins & Minerals</h2>
-            <div class="vitamins-minerals-container">
-                <!-- Vitamins and minerals content here -->
+        <section id="analysis" class="content-section">
+            <h2>Teksto Analizė</h2>
+            <textarea id="textAnalysis" placeholder="Įveskite tekstą analizei..."></textarea>
+            <button onclick="analyzeText()">Analizuoti</button>
+            <div id="analysisResults">
+                <div id="wordFrequency"></div>
+                <div id="punctuationCount"></div>
             </div>
         </section>
+
+        <section id="pacman" class="content-section">
+            <h2>Mini Pac-Man</h2>
+            <canvas id="pacmanCanvas"></canvas>
+            <div id="gameStats"></div>
+        </section>
+
+        <section id="publish" class="content-section">
+            <h2>Publikuoti</h2>
+            <button onclick="generateReport()">Generuoti Ataskaitą</button>
+            <div id="reportOutput"></div>
+        </section>
     </main>
+
+    <footer>
+        <p>Kontaktai: 8pbestourhqchi@gmail.com</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
+
+/* style.css */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #3498db;
+    --success-color: #27ae60;
+    --warning-color: #f1c40f;
+    --error-color: #e74c3c;
+    --text-color: #2c3e50;
+    --light-bg: #ecf0f1;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--light-bg);
+}
+
+.main-nav {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.content-section {
+    margin: 2rem;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.date-selector {
+    margin-bottom: 1rem;
+}
+
+.tracker-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.food-selection, .daily-log, .saved-notes {
+    padding: 1rem;
+    background-color: var(--light-bg);
+    border-radius: 4px;
+}
+
+select, input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background-color: var(--accent-color);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}
+
+#pacmanCanvas {
+    background: #000;
+    border: 1px solid var(--primary-color);
+    margin: 1rem 0;
+    width: 400px;
+    height: 300px;
+}
+
+.nutrient-bar {
+    margin: 10px 0;
+}
+
+.bar {
+    background: var(--accent-color);
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.timeline-item {
+    display: flex;
+    margin: 10px 0;
+    padding: 5px;
+    background: var(--light-bg);
+    border-radius: 4px;
+}
+
+.time {
+    min-width: 100px;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .content-section {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    
+    #pacmanCanvas {
+        width: 100%;
+        height: auto;
+    }
+}

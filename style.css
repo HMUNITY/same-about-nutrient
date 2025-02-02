@@ -1,3 +1,4 @@
+/* style.css */
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #34495e;
@@ -38,14 +39,8 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.vitamins-minerals-container h3 {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-}
-
-.vitamins-minerals-container p {
-    font-size: 1rem;
-    margin: 0.5rem 0;
+.date-selector {
+    margin-bottom: 1rem;
 }
 
 .tracker-container {
@@ -82,9 +77,57 @@ button:hover {
     background-color: var(--secondary-color);
 }
 
+#pacmanCanvas {
+    background: #000;
+    border: 1px solid var(--primary-color);
+    margin: 1rem 0;
+    width: 400px;
+    height: 300px;
+}
+
+.nutrient-bar {
+    margin: 10px 0;
+}
+
+.bar {
+    background: var(--accent-color);
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.timeline-item {
+    display: flex;
+    margin: 10px 0;
+    padding: 5px;
+    background: var(--light-bg);
+    border-radius: 4px;
+}
+
+.time {
+    min-width: 100px;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
 @media (max-width: 768px) {
     .content-section {
         margin: 1rem;
         padding: 1rem;
+    }
+    
+    #pacmanCanvas {
+        width: 100%;
+        height: auto;
     }
 }

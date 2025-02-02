@@ -59,6 +59,32 @@ body {
     }
 }
 
+/* Spiral Click Effect */
+.spiral-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.spiral-effect::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+}
+
+.spiral-effect:active::after {
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+}
+
+/* Rest of your CSS */
 .main-nav {
     background-color: var(--primary-color);
     color: var(--white);
@@ -74,7 +100,6 @@ body {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-/* Enlarged Buttons and Inputs */
 .large-btn {
     padding: 1rem 2rem;
     font-size: 1.1rem;
@@ -111,7 +136,6 @@ body {
     color: var(--white);
 }
 
-/* Game Container */
 .game-container {
     display: flex;
     flex-direction: column;
@@ -133,18 +157,17 @@ body {
     margin: 1rem 0;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .content-section {
         margin: 1rem;
         padding: 1rem;
     }
-    
+
     #pacmanCanvas {
         width: 100%;
         height: 300px;
     }
-    
+
     .large-btn {
         width: 100%;
         min-width: unset;

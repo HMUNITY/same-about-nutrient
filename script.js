@@ -182,12 +182,3 @@ function calculateNutrients(category, item, quantity) {
     const nutrients = {};
     for (let nutrient in foodItem.nutrients) {
         nutrients[nutrient] = foodItem.nutrients[nutrient] * quantity;
-    }
-    return nutrients;
-}
-
-function updateTotals(dailyData) {
-    const totals = {};
-    dailyData.entries.forEach(entry => {
-        for (let nutrient in entry.nutrients) {
-            totals[nutrient] = (totals[nutrient] || 0) + entry.nutrients[n

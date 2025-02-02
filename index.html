@@ -3,91 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mitybos ir TCM Sekimas</title>
+    <title>Cirkadinė Maistinių Medžiagų Sekimo Sistema</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="emoji-background">
-        <span class="floating-emoji">🥗</span>
-        <span class="floating-emoji">🍎</span>
-        <span class="floating-emoji">🥑</span>
-    </div>
+    <header>
+        <h1>Cirkadinė Maistinių Medžiagų Sekimo Sistema</h1>
+    </header>
 
-    <nav class="main-nav">
-        <h1>Mitybos ir TCM Sekimas</h1>
-    </nav>
+    <section id="selection-section">
+        <h2>Pasirinkimų skyrius</h2>
+        <label for="category">Pasirinkite kategoriją:</label>
+        <select id="category" onchange="updateOptions()">
+            <option value="vaisiai">Vaisiai</option>
+            <option value="darzoves">Daržovės</option>
+            <option value="baltymai">Baltymai</option>
+        </select>
 
-    <main>
-        <!-- Random Links Section -->
-        <section id="randomLinks" class="content-section">
-            <h2>Naudingos Nuorodos</h2>
-            <div class="links-container">
-                <a id="link1" target="_blank" class="link-btn spiral-effect">Nutritionist Blog</a>
-                <a id="link2" target="_blank" class="link-btn spiral-effect">Market Prices</a>
-                <a id="link3" target="_blank" class="link-btn spiral-effect">Recipes</a>
-                <a id="link4" target="_blank" class="link-btn spiral-effect">Health News</a>
-            </div>
-        </section>
+        <label for="options">Pasirinkite produktą:</label>
+        <select id="options"></select>
 
-        <!-- Daily Tracker Section -->
-        <section id="dailyTracker" class="content-section">
-            <h2>Dienos Mitybos Sekimas</h2>
-            <div class="date-selector">
-                <label for="trackingDate">Data:</label>
-                <input type="date" id="trackingDate">
-            </div>
-            <div class="tracker-container">
-                <div class="food-selection">
-                    <h3>Pasirinkite Maistą</h3>
-                    <select id="foodCategory" class="large-input spiral-effect">
-                        <option value="">Pasirinkite Kategoriją</option>
-                        <option value="grains">Grūdai ir Ankštiniai</option>
-                        <option value="vegetables">Daržovės</option>
-                        <option value="proteins">Baltymai</option>
-                    </select>
-                    <select id="foodItem" class="large-input spiral-effect">
-                        <option value="">Pasirinkite Maistą</option>
-                    </select>
-                    <input type="number" id="quantity" class="large-input" min="0.1" step="0.1" placeholder="Kiekis">
-                    <button onclick="addFoodItem()" class="large-btn primary-btn spiral-effect">Pridėti Maistą</button>
-                    <button onclick="clearEntries()" class="large-btn warning-btn spiral-effect">Išvalyti Viską</button>
-                </div>
+        <button onclick="saveSelection()">Išsaugoti</button>
+    </section>
 
-                <div class="daily-log">
-                    <h3>Šiandienos Žurnalas</h3>
-                    <div id="dailyEntries"></div>
-                    <div id="dailyTotals"></div>
-                </div>
-
-                <div class="saved-notes">
-                    <h3>Pastabos</h3>
-                    <div id="notesSection">
-                        <textarea id="noteInput" class="large-input" placeholder="Pridėkite pastabą..."></textarea>
-                        <button onclick="addNote()" class="large-btn success-btn spiral-effect">Išsaugoti Pastabą</button>
-                        <button onclick="clearNotes()" class="large-btn warning-btn spiral-effect">Išvalyti Pastabas</button>
-                    </div>
-                    <div id="savedNotes"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pac-Man Game Section -->
-        <section id="pacman" class="content-section">
-            <h2>Pac-Man Žaidimas</h2>
-            <div class="game-container">
-                <canvas id="pacmanCanvas"></canvas>
-                <div class="game-controls">
-                    <button onclick="startGame()" class="large-btn game-btn spiral-effect">Pradėti Žaidimą</button>
-                    <button onclick="toggleFullscreen()" class="large-btn game-btn spiral-effect">Pilnas Ekranas</button>
-                    <p>Naudokite rodyklių klavišus valdymui</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>Kontaktai: 8pbestourhqchi@gmail.com</p>
-    </footer>
+    <section id="results-section">
+        <h2>Išsaugoti rezultatai</h2>
+        <ul id="saved-list"></ul>
+    </section>
 
     <script src="script.js"></script>
 </body>

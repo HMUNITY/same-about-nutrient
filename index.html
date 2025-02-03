@@ -3,76 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pacman3 - Prof. Virėjo Projektas</title>
+    <title>Pacman & Food Diary</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>🕹️ Pacman3 - Maistas, TCM ir Mikroelementai</h1>
-        <p>Prof. Virėjo Projektas | Kontaktai: 8pbestourhqchi@gmail.com</p>
+        <h1>Pacman & Food Diary</h1>
     </header>
 
-    <main>
-        <!-- Profilio sekcija -->
-        <div class="profile-card">
-            <h3>👨🍳 Studento Profilis</h3>
-            <p>Vardas: Prof. Virėjas</p>
-            <p>Statusas: Profesionalaus virėjo mokinys</p>
-            <p>El. paštas: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
+    <section id="gameSection">
+        <canvas id="gameCanvas" width="600" height="400"></canvas>
+        <div id="score">
+            <h2>Score: <span id="scoreCounter">0</span></h2>
         </div>
+    </section>
 
-        <!-- Žaidimo zona -->
-        <div class="game-container">
-            <canvas id="gameCanvas" width="600" height="400"></canvas>
-            <p>📊 Surinkti simboliai: <span id="scoreCounter">0</span></p>
-        </div>
+    <section id="tcmSection">
+        <h2>TCM Duomenys</h2>
+        <table id="tcmTable">
+            <thead>
+                <tr>
+                    <th>Laikas</th>
+                    <th>Organas</th>
+                    <th>Funkcija</th>
+                    <th>Mikroelementai</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
 
-        <!-- TCM lentelė -->
-        <div class="tcm-table-container">
-            <h2>🕒 TCM Organų Aktyvumo Lentelė</h2>
-            <table id="tcmTable">
-                <thead>
-                    <tr>
-                        <th>Laikas</th>
-                        <th>Organas / Sistema</th>
-                        <th>Funkcija</th>
-                        <th>Mikroelementai</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- TCM duomenys bus užpildyti JavaScript -->
-                </tbody>
-            </table>
-        </div>
+    <section id="diarySection">
+        <button id="diaryBtn">Atidaryti Maisto Dienoraštį</button>
+    </section>
 
-        <!-- Dienoraščio modalinis langas -->
-        <div class="modal-overlay" id="modalOverlay"></div>
-        <div id="diaryModal">
-            <div class="modal-columns">
-                <div class="modal-col">
-                    <h3>🍎 Maisto Įrašas</h3>
-                    <textarea id="foodEntry" placeholder="Įveskite ingredientus, atskirtus kableliais..."></textarea>
-                </div>
-                <div class="modal-col">
-                    <h3>📊 Maistinės Medžiagos</h3>
-                    <div id="nutrientAnalysis"></div>
-                </div>
-                <div class="modal-col">
-                    <h3>📅 Paskutiniai Įrašai</h3>
-                    <div id="recentEntries"></div>
-                </div>
-            </div>
-            <button onclick="analyzeFood()" class="analysis-btn">🔍 Analizuoti</button>
-            <button onclick="saveDiary()" class="save-btn">💾 Išsaugoti</button>
-            <button onclick="clearDiary()" class="delete-btn">❌ Išvalyti</button>
-            <button id="closeDiary" class="close-btn">❌ Uždaryti</button>
-        </div>
+    <div id="modalOverlay" class="modal-overlay"></div>
 
-        <!-- Valdymo mygtukai -->
-        <div class="controls">
-            <button id="diaryBtn">📔 Atidaryti Dienoraštį</button>
+    <div id="diaryModal" class="modal">
+        <div class="modal-header">
+            <h2>Maisto Dienoraštis</h2>
+            <button id="closeDiary">Uždaryti</button>
         </div>
-    </main>
+        <textarea id="foodEntry" rows="4" cols="50"></textarea>
+        <button onclick="analyzeFood()">Analizuoti Maistą</button>
+        <div id="recentEntries"></div>
+        <div id="nutrientAnalysis"></div>
+        <button onclick="saveDiary()">Išsaugoti Dienoraštį</button>
+        <button onclick="clearDiary()">Išvalyti Dienoraštį</button>
+    </div>
+
+    <div id="ingredientModal" class="modal">
+        <div class="modal-header">
+            <h4 id="ingredientDetails"></h4>
+            <button onclick="closeDiaryModal()">Uždaryti</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

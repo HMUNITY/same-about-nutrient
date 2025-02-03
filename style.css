@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -18,48 +19,10 @@ section {
     padding: 20px;
     margin-bottom: 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.reference-tables {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-}
-
-.reference-table {
-    width: 100%;
-    margin-bottom: 20px;
-    border-collapse: collapse;
-}
-
-.reference-table caption {
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #2c3e50;
-    font-size: 1.1em;
-}
-
-.reference-table th,
-.reference-table td {
-    padding: 10px;
-    border: 1px solid #dee2e6;
-    text-align: left;
-}
-
-.reference-table th {
-    background-color: #e9ecef;
-}
-
-.student-reference {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #e9ecef;
-    border-radius: 8px;
-    text-align: center;
-}
-
+/* Modal Styling */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -67,7 +30,7 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
 
@@ -85,10 +48,6 @@ section {
     max-width: 600px;
 }
 
-.modal-content {
-    position: relative;
-}
-
 .close {
     position: absolute;
     right: 20px;
@@ -97,6 +56,7 @@ section {
     cursor: pointer;
 }
 
+/* Food Diary */
 button {
     background-color: #2c3e50;
     color: white;
@@ -125,36 +85,4 @@ button:hover {
     padding: 10px;
     border: 1px solid #dee2e6;
     border-radius: 4px;
-}
-
-.ingredient-list {
-    padding: 8px;
-    margin: 4px 0;
-    background-color: #f8f9fa;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.ingredient-list:hover {
-    background-color: #e9ecef;
-}
-
-.nutrient-item {
-    margin: 10px 0;
-}
-
-.nutrient-progress {
-    background-color: #e9ecef;
-    height: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    background-color: #2ecc71;
-    text-align: center;
-    color: white;
-    line-height: 20px;
-    transition: width 0.3s ease;
 }

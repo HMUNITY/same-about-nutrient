@@ -1,63 +1,69 @@
 <!DOCTYPE html>
-<html lang="lt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pacman & Food Diary</title>
+    <title>Nutrition Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Pacman & Food Diary</h1>
+        <h1>Nutrition Tracker</h1>
     </header>
 
-    <section id="gameSection">
-        <canvas id="gameCanvas" width="600" height="400"></canvas>
-        <div id="score">
-            <h2>Score: <span id="scoreCounter">0</span></h2>
-        </div>
-    </section>
+    <main>
+        <!-- TCM Table Section -->
+        <section id="tcmSection">
+            <h2>TCM Organ Clock</h2>
+            <table id="tcmTable">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Organ</th>
+                        <th>Function</th>
+                        <th>Micronutrients</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- TCM data will be populated here -->
+                </tbody>
+            </table>
+        </section>
 
-    <section id="tcmSection">
-        <h2>TCM Duomenys</h2>
-        <table id="tcmTable">
-            <thead>
-                <tr>
-                    <th>Laikas</th>
-                    <th>Organas</th>
-                    <th>Funkcija</th>
-                    <th>Mikroelementai</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
+        <!-- Pacman Game Section -->
+        <section id="gameSection">
+            <h2>Pacman Game</h2>
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+            <p>Score: <span id="scoreCounter">0</span></p>
+        </section>
 
-    <section id="diarySection">
-        <button id="diaryBtn">Atidaryti Maisto Dienoraštį</button>
-    </section>
-
-    <div id="modalOverlay" class="modal-overlay"></div>
-
-    <div id="diaryModal" class="modal">
-        <div class="modal-header">
-            <h2>Maisto Dienoraštis</h2>
-            <button id="closeDiary">Uždaryti</button>
-        </div>
-        <textarea id="foodEntry" rows="4" cols="50"></textarea>
-        <button onclick="analyzeFood()">Analizuoti Maistą</button>
-        <div id="recentEntries"></div>
-        <div id="nutrientAnalysis"></div>
-        <button onclick="saveDiary()">Išsaugoti Dienoraštį</button>
-        <button onclick="clearDiary()">Išvalyti Dienoraštį</button>
-    </div>
-
-    <div id="ingredientModal" class="modal">
-        <div class="modal-header">
-            <h4 id="ingredientDetails"></h4>
-            <button onclick="closeDiaryModal()">Uždaryti</button>
-        </div>
-    </div>
+        <!-- Food Diary Section -->
+        <section id="diarySection">
+            <h2>Food Diary</h2>
+            <button id="diaryBtn">Open Food Diary</button>
+            <div id="modalOverlay" class="modal-overlay"></div>
+            <div id="diaryModal" class="modal">
+                <div class="modal-content">
+                    <span id="closeDiary" class="close">&times;</span>
+                    <h3>Food Diary</h3>
+                    <textarea id="foodEntry" placeholder="Enter food items and amounts (e.g., Spinach: 100, Eggs: 50)"></textarea>
+                    <button onclick="analyzeFood()">Analyze Food</button>
+                    <button onclick="saveDiary()">Save Diary</button>
+                    <button onclick="clearDiary()">Clear Diary</button>
+                    <h4>Recent Entries</h4>
+                    <div id="recentEntries"></div>
+                    <h4>Nutrient Analysis</h4>
+                    <div id="nutrientAnalysis"></div>
+                </div>
+            </div>
+            <div id="ingredientModal" class="modal">
+                <div class="modal-content">
+                    <span onclick="closeDiaryModal()" class="close">&times;</span>
+                    <div id="ingredientDetails"></div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>

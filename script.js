@@ -1,135 +1,77 @@
-const dailyValues = {
-    B1: 1.1, B12: 2.4, Calcium: 1000, Iron: 18,
-    Choline: 425, VitaminD: 15, VitaminK: 90
-};
+class Pacman3Game {
+    constructor() {
+        this.canvas = document.getElementById('gameCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.foodItems = [];
+        this.score = 0;
+        
+        this.pacman = { x: 300, y: 200, radius: 15, speed: 2, direction: Math.random() * Math.PI * 2 };
+        this.tcmData = [
+            { time: "7–11 val.", organ: "Skrandis", function: "Virškinimas", elements: "Cinkas, Chromas" },
+            { time: "11–13 val.", organ: "Širdis", function: "Kraujotaka", elements: "Geležis, Varis" },
+        ];
 
-const micronutrientSources = {
-    B1: {
-        "Žaliasis žirnis": 0.02,
-        "Pupelės": 0.03,
-        "Saulėgrąžų sėklos": 0.05
-    },
-    B12: {
-        "Lašiša": 0.04,
-        "Jautiena": 0.03,
-        "Kiaušiniai": 0.02
-    },
-    Calcium: {
-        "Sūris": 0.2,
-        "Jogurtas": 0.15,
-        "Spinatas": 0.1
-    },
-    Iron: {
-        "Jautiena": 0.04,
-        "Lęšiai": 0.03,
-        "Moliūgų sėklos": 0.05
+        this.init();
     }
-};
 
-let selectedProducts = [];
+    init() {
+        document.getElementById('resetBtn').addEventListener('click', () => this.resetGame());
+        this.spawnFood(5);
+        this.populateTCMTable();
+        this.gameLoop();
+    }
 
-function updateProducts() {
-    const category = document.getElementById('categorySelect').value;
-    const products = Object.keys(micronutrientSources[category]);
-    
-    document.getElementById('productList').innerHTML = products
-        .map(product => `
-            <div class="product-item" onclick="selectProduct('${product}')">
-                ${product} (${micronutrientSources[category][product]}mg/g)
-            </div>
+    populateTCMTable() {
+        const tbody = document.querySelector('#tcmTable tbody');
+        tbody.innerHTML = this.tcmData.map(item => `
+            <tr>
+                <td>${item.time}</td>
+                <td>${item.organ}</td>
+                <td>${item.function}</td>
+                <td>${item.elements}</td>
+            </tr>
         `).join('');
-}
-
-function selectProduct(productName) {
-    document.querySelectorAll('.product-item').forEach(item => 
-        item.classList.remove('selected'));
-    event.target.classList.add('selected');
-}
-
-function addProduct() {
-    const productName = document.querySelector('.product-item.selected').textContent.split(' ')[0];
-    const quantity = parseFloat(document.getElementById('productQuantity').value);
-    
-    if(!productName || isNaN(quantity)) {
-        alert("Pasirinkite produktą ir įveskite kiekį!");
-        return;
     }
 
-    selectedProducts.push({
-        name: productName,
-        quantity: quantity,
-        timestamp: new Date().toLocaleString()
-    });
+    spawnFood(count) {
+        const emojis = ["🍎", "🥕", "🍗"];
+        for (let i = 0; i < count; i++) {
+            this.foodItems.push({
+                x: Math.random() * (this.canvas.width - 30) + 15,
+                y: Math.random() * (this.canvas.height - 30) + 15,
+                emoji: emojis[Math.floor(Math.random() * emojis.length)],
+                active: true
+            });
+        }
+    }
 
-    updateSummary();
-    updateProgress();
-}
+    gameLoop() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-function calculateNutrients() {
-    return selectedProducts.reduce((totals, product) => {
-        Object.entries(micronutrientSources).forEach(([nutrient, sources]) => {
-            if(sources[product.name]) {
-                totals[nutrient] = (totals[nutrient] || 0) + 
-                    (sources[product.name] * product.quantity);
+        this.pacman.x += Math.cos(this.pacman.direction) * this.pacman.speed;
+        this.pacman.y += Math.sin(this.pacman.direction) * this.pacman.speed;
+
+        this.ctx.beginPath();
+        this.ctx.arc(this.pacman.x, this.pacman.y, this.pacman.radius, 0.2, 1.8 * Math.PI);
+        this.ctx.fillStyle = 'yellow';
+        this.ctx.fill();
+
+        this.foodItems.forEach(food => {
+            if (food.active) {
+                this.ctx.font = '30px Arial';
+                this.ctx.fillText(food.emoji, food.x, food.y);
             }
         });
-        return totals;
-    }, {});
-}
 
-function updateProgress() {
-    const nutrients = calculateNutrients();
-    document.getElementById('progressContainer').innerHTML = Object.entries(nutrients)
-        .map(([nutrient, value]) => `
-            <div class="progress-bar">
-                <div class="progress-fill" 
-                     style="width: ${Math.min((value / dailyValues[nutrient]) * 100, 100)}%">
-                    ${nutrient}: ${value.toFixed(2)}/${dailyValues[nutrient]}mg
-                </div>
-            </div>
-        `).join('');
-}
-
-function updateSummary() {
-    document.getElementById('selectedProducts').innerHTML = selectedProducts
-        .map(product => `
-            <div class="product-entry">
-                ${product.name} - ${product.quantity}g 
-                <small>(${product.timestamp})</small>
-            </div>
-        `).join('');
-}
-
-function saveData() {
-    const data = {
-        date: document.getElementById('currentDate').value,
-        products: selectedProducts,
-        nutrients: calculateNutrients()
-    };
-    
-    const allData = JSON.parse(localStorage.getItem('nutritionData') || '[]');
-    const existingIndex = allData.findIndex(d => d.date === data.date);
-    
-    if(existingIndex > -1) {
-        allData[existingIndex] = data;
-    } else {
-        allData.push(data);
+        requestAnimationFrame(() => this.gameLoop());
     }
-    
-    localStorage.setItem('nutritionData', JSON.stringify(allData));
-    alert('Duomenys sėkmingai išsaugoti!');
-}
 
-function clearData() {
-    if(confirm("Ar tikrai norite išvalyti visus duomenis?")) {
-        selectedProducts = [];
-        updateSummary();
-        updateProgress();
+    resetGame() {
+        this.foodItems = [];
+        this.spawnFood(5);
     }
 }
 
-// Pradinis užkrovimas
 document.addEventListener('DOMContentLoaded', () => {
-    updateProducts();
-    updateProgress();
+    new Pacman3Game();
 });

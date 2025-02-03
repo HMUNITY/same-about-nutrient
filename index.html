@@ -1,101 +1,100 @@
 <!DOCTYPE html>
-<html lang="lt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mitybos Sekimas</title>
+    <title>Nutrition and TCM Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Mitybos Sekimo Sistema</h1>
+        <h1>Nutrition and TCM Tracker</h1>
     </header>
 
     <main>
-        <!-- TCM lentelės sekcija -->
         <section id="tcmSection">
-            <h2>TCM Organų Laikrodis</h2>
+            <h2>TCM Organ Clock</h2>
             <table id="tcmTable">
                 <thead>
                     <tr>
-                        <th>Laikas</th>
-                        <th>Organas</th>
-                        <th>Funkcija</th>
-                        <th>Mikroelementai</th>
+                        <th>Time</th>
+                        <th>Organ</th>
+                        <th>Function</th>
+                        <th>Micronutrients</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- TCM duomenys bus įkelti per JavaScript -->
-                </tbody>
+                <tbody></tbody>
             </table>
         </section>
 
-        <!-- Pacman žaidimo sekcija -->
         <section id="gameSection">
-            <h2>Pacman Žaidimas</h2>
+            <h2>Nutrient Collection Game</h2>
             <canvas id="gameCanvas" width="600" height="400"></canvas>
-            <p>Taškai: <span id="scoreCounter">0</span></p>
+            <p>Score: <span id="scoreCounter">0</span></p>
         </section>
 
-        <!-- Mitybos dienoraščio sekcija -->
         <section id="diarySection">
-            <h2>Mitybos Dienoraštis</h2>
-            <button id="diaryBtn">Atidaryti Mitybos Dienoraštį</button>
+            <h2>Food Diary</h2>
+            <button id="diaryBtn">Open Food Diary</button>
 
-            <!-- Konversijos lentelės -->
-            <div class="conversion-tables">
-                <div class="conversion-table">
-                    <h3>Įvesties Vienetai</h3>
-                    <table>
-                        <tr><th>Matavimas</th><th>Atitikmuo</th></tr>
-                        <tr><td>1 puodelis</td><td>240 ml</td></tr>
-                        <tr><td>1 valgomas šaukštas</td><td>15 ml</td></tr>
-                        <tr><td>1 arbatinis šaukštelis</td><td>5 ml</td></tr>
-                        <tr><td>1 svaras</td><td>454 g</td></tr>
-                        <tr><td>1 uncija</td><td>28.35 g</td></tr>
-                    </table>
-                </div>
-                <div class="conversion-table">
-                    <h3>Išvesties Vienetai</h3>
-                    <table>
-                        <tr><th>Maistinė medžiaga</th><th>Vienetas</th></tr>
-                        <tr><td>Vitaminai B1-B6</td><td>mg</td></tr>
-                        <tr><td>Vitaminas B12</td><td>mcg</td></tr>
-                        <tr><td>Mineralai</td><td>mg</td></tr>
-                        <tr><td>Mikroelementai</td><td>mcg</td></tr>
-                    </table>
-                </div>
+            <div class="reference-tables">
+                <h3>Nutrient Reference Tables</h3>
+                <table class="reference-table">
+                    <caption>Daily Recommended Values (Women 19+)</caption>
+                    <tr><th>Nutrient</th><th>Amount</th><th>Unit</th></tr>
+                    <tr><td>Vitamin B1 (Thiamin)</td><td>1.1</td><td>mg</td></tr>
+                    <tr><td>Vitamin B2 (Riboflavin)</td><td>1.0</td><td>mg</td></tr>
+                    <tr><td>Vitamin B3 (Niacin)</td><td>35.0</td><td>mg</td></tr>
+                    <tr><td>Vitamin B5 (Pantothenic acid)</td><td>5.0</td><td>mg</td></tr>
+                    <tr><td>Vitamin B6 (Pyridoxine)</td><td>1.3</td><td>mg</td></tr>
+                    <tr><td>Vitamin B7 (Biotin)</td><td>0.03</td><td>mg</td></tr>
+                    <tr><td>Vitamin B12 (Cobalamin)</td><td>2.4</td><td>mcg</td></tr>
+                    <tr><td>Vitamin A</td><td>700</td><td>mcg</td></tr>
+                    <tr><td>Vitamin C</td><td>75</td><td>mg</td></tr>
+                    <tr><td>Vitamin D</td><td>15</td><td>mcg</td></tr>
+                    <tr><td>Vitamin E</td><td>15</td><td>mg</td></tr>
+                    <tr><td>Vitamin K</td><td>90</td><td>mcg</td></tr>
+                </table>
+
+                <table class="reference-table">
+                    <caption>Mineral Daily Values</caption>
+                    <tr><th>Mineral</th><th>Amount</th><th>Unit</th></tr>
+                    <tr><td>Calcium</td><td>1000</td><td>mg</td></tr>
+                    <tr><td>Iron</td><td>18</td><td>mg</td></tr>
+                    <tr><td>Magnesium</td><td>310</td><td>mg</td></tr>
+                    <tr><td>Phosphorus</td><td>700</td><td>mg</td></tr>
+                    <tr><td>Potassium</td><td>2600</td><td>mg</td></tr>
+                    <tr><td>Zinc</td><td>8</td><td>mg</td></tr>
+                    <tr><td>Selenium</td><td>55</td><td>mcg</td></tr>
+                    <tr><td>Copper</td><td>0.9</td><td>mg</td></tr>
+                    <tr><td>Manganese</td><td>1.8</td><td>mg</td></tr>
+                    <tr><td>Chromium</td><td>0.025</td><td>mg</td></tr>
+                    <tr><td>Molybdenum</td><td>0.045</td><td>mg</td></tr>
+                    <tr><td>Iodine</td><td>150</td><td>mcg</td></tr>
+                    <tr><td>Chloride</td><td>2300</td><td>mg</td></tr>
+                    <tr><td>Choline</td><td>425</td><td>mg</td></tr>
+                </table>
             </div>
 
-            <!-- Informacijos sekcija -->
-            <div class="references">
-                <h3>Projekto Informacija</h3>
-                <p>Sukūrė: Studentas Virėjas Anex Nisdas</p>
-                <p>Kontaktai: anexxisnidas@outlook.com</p>
-                <p>Remiamasi:</p>
-                <ul>
-                    <li>Tradicinės Kinų Medicinos Principais, PSO (2019)</li>
-                    <li>Mitybos Gairėmis, Amerikos Dietologų Asociacija (2023)</li>
-                    <li>Klinikinės Mitybos Vadovu, Europos Maisto Saugos Tarnyba (2022)</li>
-                </ul>
+            <div class="student-reference">
+                <p>Created by: Student Professional Chef</p>
+                <p>Contact: anexxisnidas@outlook.com</p>
             </div>
 
-            <!-- Modalinis langas -->
             <div id="modalOverlay" class="modal-overlay"></div>
             <div id="diaryModal" class="modal">
                 <div class="modal-content">
                     <span id="closeDiary" class="close">&times;</span>
-                    <h3>Mitybos Dienoraštis</h3>
-                    <textarea id="foodEntry" placeholder="Įveskite maisto produktus ir kiekius (pvz., Špinatai: 100, Kiaušiniai: 50)"></textarea>
-                    <button onclick="analyzeFood()">Analizuoti Maistą</button>
-                    <button onclick="saveDiary()">Išsaugoti</button>
-                    <button onclick="clearDiary()">Išvalyti</button>
-                    <h4>Paskutiniai Įrašai</h4>
+                    <h3>Food Diary Entry</h3>
+                    <textarea id="foodEntry" placeholder="Enter food items and amounts (e.g., Spinach: 100, Eggs: 50)"></textarea>
+                    <button onclick="analyzeFood()">Analyze Food</button>
+                    <button onclick="saveDiary()">Save Diary</button>
+                    <button onclick="clearDiary()">Clear Diary</button>
                     <div id="recentEntries"></div>
-                    <h4>Maistinių Medžiagų Analizė</h4>
                     <div id="nutrientAnalysis"></div>
                 </div>
             </div>
+
             <div id="ingredientModal" class="modal">
                 <div class="modal-content">
                     <span onclick="closeDiaryModal()" class="close">&times;</span>

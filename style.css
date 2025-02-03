@@ -1,47 +1,93 @@
+:root {
+    --primary-color: #2ecc71;
+    --secondary-color: #3498db;
+    --warning-color: #e74c3c;
+    --background: #ecf0f1;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', system-ui;
     margin: 0;
     padding: 20px;
-    text-align: center;
-    background-color: #f0f8ff;
+    background: var(--background);
 }
 
 header {
-    margin-bottom: 20px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 1.5rem;
+    border-radius: 0 0 15px 15px;
+    margin-bottom: 2rem;
 }
 
-#gameCanvas {
-    border: 2px solid #228B22;
+.header-controls {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.left-panel, .right-panel {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.center-panel {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    margin: 1rem 0;
+    background: #eee;
     border-radius: 10px;
-    background: #000;
+    height: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-color);
+    transition: width 0.5s ease;
 }
 
 button {
-    padding: 10px 20px;
-    background: #228B22;
+    background: var(--secondary-color);
     color: white;
     border: none;
-    border-radius: 5px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
     cursor: pointer;
-    margin: 10px;
+    transition: all 0.3s ease;
 }
 
-#results-section {
-    margin-top: 20px;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    display: inline-block;
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52,152,219,0.4);
 }
 
-ul {
-    list-style: none;
-    padding: 0;
+input[type="number"] {
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    margin: 1rem 0;
 }
 
-li {
-    margin: 5px;
-    padding: 5px;
-    background: #98FB98;
-    border-radius: 3px;
+.info-content article {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
 }

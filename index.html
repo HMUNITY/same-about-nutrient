@@ -3,64 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pacman3 - Mikroelementų Sekimas</title>
+    <title>Pacman3 - Mikroelementų Valdymas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>🍏 Pacman3 - Mikroelementų Sekimas 💊</h1>
+        <h1>🥦 Pacman3 - Mikroelementų Valdymas 💊</h1>
         <div class="header-controls">
-            <input type="date" id="currentDate">
-            <button onclick="saveDailyData()">Išsaugoti</button>
+            <input type="date" id="currentDate" value="2024-03-15">
+            <button onclick="saveData()">💾 Išsaugoti</button>
+            <button onclick="clearData()" class="danger">❌ Išvalyti</button>
         </div>
     </header>
 
-    <main>
-        <div class="container">
-            <!-- Kairė skiltis - Maisto kategorijos -->
-            <section class="left-panel">
-                <div class="category-selector">
-                    <h2>🏷️ Kategorijos</h2>
-                    <select id="foodCategory" onchange="updateFoodList()">
-                        <option value="B1">B1 Vitaminai</option>
-                        <option value="B12">B12 Vitaminai</option>
-                        <option value="Calcium">Kalcis</option>
-                        <option value="Iron">Geležis</option>
-                    </select>
-                </div>
-                
-                <div class="ingredient-list">
-                    <h2>🛒 Produktai</h2>
-                    <div id="ingredientOptions"></div>
-                    <input type="number" id="ingredientAmount" placeholder="Kiekis (g)">
-                    <button onclick="addIngredient()">Pridėti</button>
-                </div>
-            </section>
-
-            <!-- Vidurio skiltis - Skaičiavimai -->
-            <section class="center-panel">
-                <h2>📊 Dienos suvestinė</h2>
-                <div class="micronutrient-summary">
-                    <div id="progressBars"></div>
-                    <ul id="micronutrientDetails"></ul>
-                </div>
-            </section>
-
-            <!-- Dešinė skiltis - Aprašymai -->
-            <section class="right-panel">
-                <h2>📚 Informacija</h2>
-                <div class="info-content" id="nutrientInfo">
-                    <article data-nutrient="Choline">
-                        <h3>Cholinas (CNS ir PNS)</h3>
-                        <p>Veikia nervų sistemą, padeda perduoti nervinius signalus...</p>
-                        <p><strong>Dienos norma:</strong> 425mg</p>
-                        <p><strong>Šaltiniai:</strong> Kiaušiniai, tunas, lašiša</p>
-                    </article>
-                    <!-- Kiti elementai -->
-                </div>
-            </section>
+    <div class="container">
+        <!-- Kairė skiltis - Produktų pasirinkimas -->
+        <div class="left-panel">
+            <div class="category-selector">
+                <h2>📦 Produktų Kategorijos</h2>
+                <select id="categorySelect" onchange="updateProducts()">
+                    <option value="B1">B1 Vitaminai</option>
+                    <option value="B12">B12 Vitaminai</option>
+                    <option value="Calcium">Kalcis</option>
+                    <option value="Iron">Geležis</option>
+                </select>
+            </div>
+            
+            <div class="product-list" id="productList"></div>
+            
+            <div class="quantity-selector">
+                <input type="number" id="productQuantity" placeholder="Kiekis (gramais)">
+                <button onclick="addProduct()">➕ Pridėti</button>
+            </div>
         </div>
-    </main>
+
+        <!-- Vidurio skiltis - Statistika -->
+        <div class="center-panel">
+            <h2>📈 Dienos suvestinė</h2>
+            <div class="progress-container" id="progressContainer"></div>
+            
+            <h2>📋 Įvesti produktai</h2>
+            <div class="selected-products" id="selectedProducts"></div>
+        </div>
+
+        <!-- Dešinė skiltis - Informacija -->
+        <div class="right-panel">
+            <div class="nutrient-info" id="nutrientInfo">
+                <article data-nutrient="Choline">
+                    <h3>🥚 Cholinas</h3>
+                    <p><strong>Funkcija:</strong> Nervų sistemos palaikymas</p>
+                    <p><strong>Dienos norma:</strong> 425 mg</p>
+                    <p><strong>Šaltiniai:</strong> Kiaušiniai, žuvys, malti miežiai</p>
+                </article>
+                <!-- Kiti elementai -->
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

@@ -1,4 +1,4 @@
-// TCM duomenys
+// TCM Data
 const tcmData = [
     { laikas: "7–11 val.", organas: "Skrandis / Blužnis", funkcija: "Virškinimas", mikroelementai: "Cinkas, Chromas" },
     { laikas: "11–13 val.", organas: "Širdis", funkcija: "Kraujotaka", mikroelementai: "Geležis, Varis" },
@@ -7,7 +7,7 @@ const tcmData = [
     { laikas: "1–3 val.", organas: "Kepenys", funkcija: "Detoksikacija", mikroelementai: "Geležis, Cinkas, Varis" }
 ];
 
-// Maisto duomenys
+// Food Data
 let ingredients = [];
 const dailyValues = {
     B1: 1.1, B2: 1.0, B3: 35.0, B5: 5.0, B6: 1.3, B7: 0.03, B12: 2.4,
@@ -35,7 +35,7 @@ const micronutrientSources = {
     Iodine: { Seaweed: 0.2, Fish: 0.1, Shrimp: 0.08 }
 };
 
-// PACMAN ŽAIDIMAS
+// Pacman Game
 class PacmanGame {
     constructor() {
         this.canvas = document.getElementById('gameCanvas');
@@ -88,11 +88,11 @@ class PacmanGame {
     gameLoop() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Pacman judėjimas
+        // Pacman movement
         this.pacman.x += Math.cos(this.pacman.direction) * this.pacman.speed;
         this.pacman.y += Math.sin(this.pacman.direction) * this.pacman.speed;
 
-        // Atitrenkimo logika
+        // Bounce logic
         if (this.pacman.x < 0 || this.pacman.x > this.canvas.width) {
             this.pacman.direction = Math.PI - this.pacman.direction;
         }
@@ -100,13 +100,13 @@ class PacmanGame {
             this.pacman.direction = -this.pacman.direction;
         }
 
-        // Piešimas
+        // Drawing
         this.ctx.beginPath();
         this.ctx.arc(this.pacman.x, this.pacman.y, this.pacman.radius, 0.2, 1.8 * Math.PI);
         this.ctx.fillStyle = 'yellow';
         this.ctx.fill();
 
-        // Raidžių piešimas
+        // Drawing letters
         this.letterObjects.forEach(letter => {
             if (letter.active) {
                 this.ctx.font = '20px Arial';
@@ -120,7 +120,7 @@ class PacmanGame {
     }
 }
 
-// TCM LENTELĖS UŽPIELDYMAS
+// TCM Table Population
 function fillTcmTable() {
     const tbody = document.querySelector("#tcmTable tbody");
     tbody.innerHTML = tcmData.map(item => `
@@ -133,7 +133,7 @@ function fillTcmTable() {
     `).join('');
 }
 
-// MAISTO DIENORAŠTIS
+// Food Diary Functions
 document.getElementById('diaryBtn').addEventListener('click', () => {
     document.getElementById('modalOverlay').style.display = 'block';
     document.getElementById('diaryModal').style.display = 'block';
@@ -203,7 +203,6 @@ function updateNutrientAnalysis() {
     `).join('');
 }
 
-// INGREDIENTŲ DETAILĖS
 function showIngredientDetails(index) {
     const ingredient = ingredients[index];
     const details = document.getElementById('ingredientDetails');
@@ -227,7 +226,7 @@ function closeDiaryModal() {
     document.getElementById('ingredientModal').style.display = 'none';
 }
 
-// LOCAL STORAGE FUNKCIJOS
+// Local Storage Functions
 function saveDiary() {
     const diaryEntry = {
         date: new Date().toISOString(),
@@ -260,7 +259,7 @@ function clearDiary() {
     alert('Dienoraštis išvalytas!');
 }
 
-// INICIALIZACIJA
+// Initialization
 window.addEventListener('load', () => {
     fillTcmTable();
     new PacmanGame();

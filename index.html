@@ -1,57 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutrition and TCM Tracker</title>
+    <title>Pacman3 - Prof. Virėjo Projektas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Nutrition and TCM Tracker</h1>
+        <h1>🕹️ Pacman3 - Maistas, TCM ir Mikroelementai</h1>
+        <p>Prof. Virėjo Projektas | Kontaktai: 8pbestourhqchi@gmail.com</p>
     </header>
 
     <main>
-        <!-- TCM Organ Clock Section -->
-        <section id="tcmSection">
-            <h2>TCM Organ Clock</h2>
+        <!-- Profilio sekcija -->
+        <div class="profile-card">
+            <h3>👨🍳 Studento Profilis</h3>
+            <p>Vardas: Prof. Virėjas</p>
+            <p>Statusas: Profesionalaus virėjo mokinys</p>
+            <p>El. paštas: <a href="mailto:8pbestourhqchi@gmail.com">8pbestourhqchi@gmail.com</a></p>
+        </div>
+
+        <!-- Žaidimo zona -->
+        <div class="game-container">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+            <p>📊 Surinkti simboliai: <span id="scoreCounter">0</span></p>
+        </div>
+
+        <!-- TCM lentelė -->
+        <div class="tcm-table-container">
+            <h2>🕒 TCM Organų Aktyvumo Lentelė</h2>
             <table id="tcmTable">
                 <thead>
                     <tr>
-                        <th>Time</th>
-                        <th>Organ</th>
-                        <th>Function</th>
-                        <th>Micronutrients</th>
+                        <th>Laikas</th>
+                        <th>Organas / Sistema</th>
+                        <th>Funkcija</th>
+                        <th>Mikroelementai</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    <!-- TCM duomenys bus užpildyti JavaScript -->
+                </tbody>
             </table>
-        </section>
+        </div>
 
-        <!-- Nutrient Collection Game Section -->
-        <section id="gameSection">
-            <h2>Nutrient Collection Game</h2>
-            <canvas id="gameCanvas" width="600" height="400"></canvas>
-            <p>Score: <span id="scoreCounter">0</span></p>
-        </section>
-
-        <!-- Food Diary Section -->
-        <section id="diarySection">
-            <h2>Food Diary</h2>
-            <button id="diaryBtn">Open Food Diary</button>
-            <div id="modalOverlay" class="modal-overlay"></div>
-            <div id="diaryModal" class="modal">
-                <div class="modal-content">
-                    <span id="closeDiary" class="close">&times;</span>
-                    <h3>Food Diary Entry</h3>
-                    <textarea id="foodEntry" placeholder="Enter food items and amounts (e.g., Spinach: 100g, Eggs: 50g)"></textarea>
-                    <button onclick="analyzeFood()">Analyze Food</button>
-                    <button onclick="saveDiary()">Save Diary</button>
-                    <button onclick="clearDiary()">Clear Diary</button>
+        <!-- Dienoraščio modalinis langas -->
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div id="diaryModal">
+            <div class="modal-columns">
+                <div class="modal-col">
+                    <h3>🍎 Maisto Įrašas</h3>
+                    <textarea id="foodEntry" placeholder="Įveskite ingredientus, atskirtus kableliais..."></textarea>
+                </div>
+                <div class="modal-col">
+                    <h3>📊 Maistinės Medžiagos</h3>
                     <div id="nutrientAnalysis"></div>
                 </div>
+                <div class="modal-col">
+                    <h3>📅 Paskutiniai Įrašai</h3>
+                    <div id="recentEntries"></div>
+                </div>
             </div>
-        </section>
+            <button onclick="analyzeFood()" class="analysis-btn">🔍 Analizuoti</button>
+            <button onclick="saveDiary()" class="save-btn">💾 Išsaugoti</button>
+            <button onclick="clearDiary()" class="delete-btn">❌ Išvalyti</button>
+            <button id="closeDiary" class="close-btn">❌ Uždaryti</button>
+        </div>
+
+        <!-- Valdymo mygtukai -->
+        <div class="controls">
+            <button id="diaryBtn">📔 Atidaryti Dienoraštį</button>
+        </div>
     </main>
 
     <script src="script.js"></script>

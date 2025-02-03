@@ -12,6 +12,7 @@
     </header>
 
     <main>
+        <!-- TCM Organ Clock Section -->
         <section id="tcmSection">
             <h2>TCM Organ Clock</h2>
             <table id="tcmTable">
@@ -27,78 +28,27 @@
             </table>
         </section>
 
+        <!-- Nutrient Collection Game Section -->
         <section id="gameSection">
             <h2>Nutrient Collection Game</h2>
             <canvas id="gameCanvas" width="600" height="400"></canvas>
             <p>Score: <span id="scoreCounter">0</span></p>
         </section>
 
+        <!-- Food Diary Section -->
         <section id="diarySection">
             <h2>Food Diary</h2>
             <button id="diaryBtn">Open Food Diary</button>
-
-            <div class="reference-tables">
-                <h3>Nutrient Reference Tables</h3>
-                <table class="reference-table">
-                    <caption>Daily Recommended Values (Women 19+)</caption>
-                    <tr><th>Nutrient</th><th>Amount</th><th>Unit</th></tr>
-                    <tr><td>Vitamin B1 (Thiamin)</td><td>1.1</td><td>mg</td></tr>
-                    <tr><td>Vitamin B2 (Riboflavin)</td><td>1.0</td><td>mg</td></tr>
-                    <tr><td>Vitamin B3 (Niacin)</td><td>35.0</td><td>mg</td></tr>
-                    <tr><td>Vitamin B5 (Pantothenic acid)</td><td>5.0</td><td>mg</td></tr>
-                    <tr><td>Vitamin B6 (Pyridoxine)</td><td>1.3</td><td>mg</td></tr>
-                    <tr><td>Vitamin B7 (Biotin)</td><td>0.03</td><td>mg</td></tr>
-                    <tr><td>Vitamin B12 (Cobalamin)</td><td>2.4</td><td>mcg</td></tr>
-                    <tr><td>Vitamin A</td><td>700</td><td>mcg</td></tr>
-                    <tr><td>Vitamin C</td><td>75</td><td>mg</td></tr>
-                    <tr><td>Vitamin D</td><td>15</td><td>mcg</td></tr>
-                    <tr><td>Vitamin E</td><td>15</td><td>mg</td></tr>
-                    <tr><td>Vitamin K</td><td>90</td><td>mcg</td></tr>
-                </table>
-
-                <table class="reference-table">
-                    <caption>Mineral Daily Values</caption>
-                    <tr><th>Mineral</th><th>Amount</th><th>Unit</th></tr>
-                    <tr><td>Calcium</td><td>1000</td><td>mg</td></tr>
-                    <tr><td>Iron</td><td>18</td><td>mg</td></tr>
-                    <tr><td>Magnesium</td><td>310</td><td>mg</td></tr>
-                    <tr><td>Phosphorus</td><td>700</td><td>mg</td></tr>
-                    <tr><td>Potassium</td><td>2600</td><td>mg</td></tr>
-                    <tr><td>Zinc</td><td>8</td><td>mg</td></tr>
-                    <tr><td>Selenium</td><td>55</td><td>mcg</td></tr>
-                    <tr><td>Copper</td><td>0.9</td><td>mg</td></tr>
-                    <tr><td>Manganese</td><td>1.8</td><td>mg</td></tr>
-                    <tr><td>Chromium</td><td>0.025</td><td>mg</td></tr>
-                    <tr><td>Molybdenum</td><td>0.045</td><td>mg</td></tr>
-                    <tr><td>Iodine</td><td>150</td><td>mcg</td></tr>
-                    <tr><td>Chloride</td><td>2300</td><td>mg</td></tr>
-                    <tr><td>Choline</td><td>425</td><td>mg</td></tr>
-                </table>
-            </div>
-
-            <div class="student-reference">
-                <p>Created by: Student Professional Chef</p>
-                <p>Contact: anexxisnidas@outlook.com</p>
-            </div>
-
             <div id="modalOverlay" class="modal-overlay"></div>
             <div id="diaryModal" class="modal">
                 <div class="modal-content">
                     <span id="closeDiary" class="close">&times;</span>
                     <h3>Food Diary Entry</h3>
-                    <textarea id="foodEntry" placeholder="Enter food items and amounts (e.g., Spinach: 100, Eggs: 50)"></textarea>
+                    <textarea id="foodEntry" placeholder="Enter food items and amounts (e.g., Spinach: 100g, Eggs: 50g)"></textarea>
                     <button onclick="analyzeFood()">Analyze Food</button>
                     <button onclick="saveDiary()">Save Diary</button>
                     <button onclick="clearDiary()">Clear Diary</button>
-                    <div id="recentEntries"></div>
                     <div id="nutrientAnalysis"></div>
-                </div>
-            </div>
-
-            <div id="ingredientModal" class="modal">
-                <div class="modal-content">
-                    <span onclick="closeDiaryModal()" class="close">&times;</span>
-                    <div id="ingredientDetails"></div>
                 </div>
             </div>
         </section>

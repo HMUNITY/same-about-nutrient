@@ -1,88 +1,110 @@
 <!DOCTYPE html>
-<html lang="lt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pacman3 - Prof. Virėjo Projektas</title>
+    <title>Nutrition & TCM Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>🕹️ Pacman3 - Maistas, TCM ir Mikroelementai</h1>
-        <p>Prof. Virėjo Projektas | Kontaktai: anexxisnidas@outlook.com</p>
-    </header>
+    <nav class="main-nav">
+        <h1>Nutrition & TCM Tracker</h1>
+    </nav>
 
     <main>
-        <div class="profile-card">
-            <h3>👨🍳 Studento Profilis</h3>
-            <p>Vardas: Prof. Virėjas</p>
-            <p>Statusas: Profesionalaus virėjo mokinys</p>
-            <p>El. paštas: <a href="mailto:anexxisnidas@outlook.com">anexxisnidas@outlook.com</a></p>
-        </div>
+        <!-- Food Lists Section -->
+        <section id="foodLists" class="content-section">
+            <h2>Food Database</h2>
+            <div class="tab-container">
+                <button class="tab-btn active" data-tab="grains">Grains & Legumes</button>
+                <button class="tab-btn" data-tab="vegetables">Vegetables</button>
+                <button class="tab-btn" data-tab="proteins">Proteins</button>
+                <button class="tab-btn" data-tab="vitamins">Vitamins & Minerals</button>
+            </div>
+            <div id="foodContent" class="tab-content"></div>
+        </section>
 
-        <div class="game-container">
-            <canvas id="gameCanvas" width="600" height="400"></canvas>
-            <p>📊 Surinkti simboliai: <span id="scoreCounter">0</span></p>
-        </div>
-
-        <div class="tcm-table-container">
-            <h2>🕒 TCM Organų Aktyvumo Lentelė</h2>
-            <table id="tcmTable">
-                <thead>
-                    <tr>
-                        <th>Laikas</th>
-                        <th>Organas / Sistema</th>
-                        <th>Funkcija</th>
-                        <th>Mikroelementai</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- TCM duomenys bus užpildyti JavaScript -->
-                </tbody>
-            </table>
-        </div>
-
-        <div class="modal-overlay" id="modalOverlay"></div>
-        <div id="diaryModal">
-            <div class="modal-columns">
-                <div class="modal-col">
-                    <h3>🍎 Maisto Įrašas</h3>
-                    <textarea id="foodEntry" placeholder=" B1: { Asparagus: 0.05, SunflowerSeeds: 0.03, GreenPeas: 0.02, SesameSeeds: 0.04 },
-    B2: { Spinach: 0.03, SoyBeans: 0.02, Asparagus: 0.02, Eggs: 0.05 },
-    B3: { Tuna: 0.1, Chicken: 0.08, Salmon: 0.09, Beef: 0.07 },
-    B5: { MushroomShiitake: 0.04, MushroomCrimini: 0.02, SweetPotatoes: 0.01, Chicken: 0.03 },
-    B6: { Turkey: 0.05, Beef: 0.04, Salmon: 0.04, Chicken: 0.03, Banana: 0.02 },
-    B7: { Tomato: 0.01, Eggs: 0.02, Onions: 0.01, Carrot: 0.01, Banana: 0.01 },
-    B12: { Yogurt: 0.1, Eggs: 0.03, Sardines: 0.05, Tuna: 0.04 },
-    VitaminA: { Spinach: 0.1, Carrot: 0.08, SweetPotato: 0.09, Kale: 0.11 },
-    VitaminC: { BrusselsSprouts: 0.08, Strawberries: 0.06, Papaya: 0.1 },
-    VitaminD: { Eggs: 0.02, Salmon: 0.03, SunExposure: 0.05 },
-    Calcium: { Tofu: 0.1, Cheese: 0.2, Yogurt: 0.15, Sardines: 0.08 },
-    Iron: { SpinachSwissChard: 0.05, Beans: 0.04, PumpkinSeeds: 0.03 },
-    Magnesium: { AlmondMigdolas: 0.06, SoybeansPupeles: 0.05, BrownRice: 0.04 },
-    Phosphorus: { Chicken: 0.07, Turkey: 0.06, Yogurt: 0.05 },
-    Iodine: { Seaweed: 0.2, Fish: 0.1, Shrimp: 0.08 }..."></textarea>
+        <!-- Tracking Section -->
+        <section id="trackingSection" class="content-section">
+            <h2>Track Your Nutrition</h2>
+            <div class="tracking-container">
+                <div class="selection-form">
+                    <h3>1. Select Foods</h3>
+                    <form id="foodSelectionForm">
+                        <select id="foodCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="grains">Grains & Legumes</option>
+                            <option value="vegetables">Vegetables</option>
+                            <option value="proteins">Proteins</option>
+                        </select>
+                        <select id="foodItem" required>
+                            <option value="">Select Food</option>
+                        </select>
+                        <input type="number" id="quantity" placeholder="Quantity" required>
+                        <select id="unit" required>
+                            <option value="">Select Unit</option>
+                            <option value="g">Grams (g)</option>
+                            <option value="cups">Cups</option>
+                        </select>
+                        <button type="submit">Add to Calculation</button>
+                    </form>
                 </div>
-                <div class="modal-col">
-                    <h3>📊 Maistinės Medžiagos</h3>
-                    <div id="nutrientAnalysis"></div>
+                <div class="calculation-display">
+                    <h3>2. Nutrition Calculation</h3>
+                    <div id="calculationResults"></div>
                 </div>
-                <div class="modal-col">
-                    <h3>📅 Paskutiniai Įrašai</h3>
-                    <div id="recentEntries"></div>
+                <div class="saved-data">
+                    <h3>3. Saved Entries</h3>
+                    <div id="savedEntries"></div>
                 </div>
             </div>
-            <button onclick="analyzeFood()" class="analysis-btn">🔍 Analizuoti</button>
-            <button onclick="saveDiary()" class="save-btn">💾 Išsaugoti</button>
-            <button onclick="clearDiary()" class="delete-btn">❌ Išvalyti</button>
-            <button id="closeDiary" class="close-btn">❌ Uždaryti</button>
-        </div>
+        </section>
 
-        <div class="controls">
-            <button id="diaryBtn">📔 Atidaryti Dienoraštį</button>
-        </div>
+        <!-- TCM Clock Section -->
+        <section id="tcmClock" class="content-section">
+            <h2>TCM Circadian Rhythm</h2>
+            <div class="tcm-container">
+                <div class="clock-visual"></div>
+                <div class="nutrients-list">
+                    <h3>Recommended Nutrients by Time</h3>
+                    <div id="tcmNutrients"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pacman Game Section -->
+        <section id="pacman-game" class="content-section">
+            <h2>🎮 Pacman Nutrition Break</h2>
+            <canvas id="gameCanvas" width="400" height="300"></canvas>
+            <div class="score-board">
+                <p>Score: <span id="scoreCounter">0</span></p>
+                <button id="restartBtn">Restart Game</button>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section">
+            <h2>Contact Food Footprint Team</h2>
+            <div class="contact-container">
+                <form id="contactForm" class="contact-form">
+                    <input type="email" value="8pbestourhqchi@gmail.com" readonly>
+                    <textarea placeholder="Your message"></textarea>
+                    <div class="upload-container">
+                        <label for="photoUpload" class="upload-btn">Upload Photo</label>
+                        <input type="file" id="photoUpload" accept="image/*">
+                        <span id="fileName"></span>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
     </main>
 
+    <footer>
+        <p>© 2025 HMUNITY - Nutrition & TCM Tracker</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
